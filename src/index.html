@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Project Task Hub</title>
+    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+  </head>
+  <body>
+    <div id="addProjectOverlay" class="overlay" style="display: none;">
+      <div class="centered-container" style="text-align: center;">
+          <div style="display: grid; grid-template-columns: 1fr auto;">
+              <h1>Add a Project</h1>
+              <button id="addProjectCloseButton" class="slim-button fa-solid fa-x"></button>
+          </div>
+          <input id="projectNameInput" type="text" placeholder="Project Name" style="padding: 10px;">
+          <button id="saveProjectButton" class="input-button">Add Project</button>
+      </div>
+    </div>
+  
+    <div class="base-grid">
+      <div class="top-bar-grid container">
+        <h1 class="fas fa-home" style="color: #7C90DB"></h1>
+        <div class="quick-stats-top-bar-grid">
+          <div class="inner-container header-and-container">
+            <h3 id="totalActiveTasksCount"></h3>
+            <h5>Active Tasks</h5>
+          </div>
+          <div class="inner-container header-and-container">
+            <h3 id="totalCompleteTasksCount"></h3>
+            <h5>Complete Tasks</h5>
+          </div>
+          <div class="inner-container header-and-container">
+            <h3 id="newTotalTaskCount"></h3>
+            <h5>New Tasks (7 Days)</h5>
+          </div>
+          <div class="inner-container header-and-container">
+            <h3 id="newCompleteTaskCount"></h3>
+            <h5>Complete (7 Days)</h5>
+          </div>
+          <div class="inner-container header-and-container">
+            <h3 id="totalProjectsCount"></h3>
+            <h5>Total Projects</h5>
+          </div>  
+          <div class="inner-container header-and-container">
+            <h3 id="newProjectCount"></h3>
+            <h5>New Projects (7 Days)</h5>
+          </div>  
+        </div>
+      </div>
+
+      <div class="index-content-grid">
+        <div style="overflow: hidden; display: grid; grid-template-rows: auto 1fr;">
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); grid-gap: 5px;">
+            <button id="showActiveProjectsButton" class="active-complete-buttons">Active Projects</button>
+            <button id="showCompleteProjectsButton" class="active-complete-buttons">Complete Projects</button>
+          </div>  
+
+          <div class="container" style="display: grid; grid-template-rows: auto 1fr; overflow: hidden; border-top-left-radius: 0px; border-top-right-radius: 0px;">
+            <div style="display: grid; grid-template-columns: 1fr auto; padding-bottom: 10px;;">
+              <h2 id="selectedProjectStatusHeader">Active Projects</h2>
+              <button id="addProjectButton" class="slim-button fas fa-plus"></button>
+            </div>
+            <div id="projectListDiv" style="display: grid; grid-gap: 5px; height: 100%; overflow: auto; align-content: start;">
+            </div>  
+          </div>
+        </div>
+
+        <div class="index-graphs-grid">
+          <div class="container canvas-grid">
+            <h3>Completed Tasks (30 Days)</h3>
+            <div class="inner-container" style="padding: 20px 10px 10px 10px;">
+              <canvas id="monthlyLineGraph"></canvas>              
+            </div>
+          </div>
+          <div class="container canvas-grid">
+            <h3>Annual Completed Tasks</h3>
+            <div class="inner-container" style="padding: 20px 10px 0px 10px;">
+              <canvas id="annualBarGraph"></canvas>              
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </body>
+  <script src="homeView.js"></script>
+  <script src="hubQuickInfo.js"></script>
+  <script src="graphs.js"></script>
+</html>
+
+

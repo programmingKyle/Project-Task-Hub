@@ -1,0 +1,311 @@
+body {
+  margin: 10px;
+  height: calc(100vh - 20px);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background-color: #1B1B1B;
+}
+
+
+div {
+  padding: 0px;
+  margin: 0px;
+}
+
+textarea {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+  Arial, sans-serif;
+  background-color: #252525;
+  color: #9593D9;
+  resize: none;
+  flex: 1;
+  border-radius: 10px;
+  border-style: none;
+  padding: 10px;
+  outline: none; /* Remove the focus outline */
+}
+
+input {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+  Arial, sans-serif;
+  background-color: #252525;
+  color: #9593D9;
+  border-radius: 10px;
+  border-style: none;
+  padding: 5px;
+  outline: none; /* Remove the focus outline */
+}
+
+.input-error {
+  box-shadow: inset 0 0 0 2px red; /* Adjust the width (2px in this case) based on your preference */
+}
+
+.inner-container {
+  background-color: #252525;
+  border-radius: 10px;
+}
+
+.active-complete-buttons {
+  background-color: transparent;
+  height: 40px;
+  color: #7C90DB;
+  border-style: solid;
+  border-color: transparent;
+  border-radius: 10px 10px 0px 0px;
+}
+
+.active-complete-buttons:hover {
+  color: #889ADE;
+  border-style: solid;
+  border-color: #889ADE;
+}
+
+.header-and-container {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  padding: 5px;
+}
+
+.container {
+  background-color: #313131;
+  border-radius: 10px;
+  text-align: center;
+  padding: 10px;
+}
+
+p {
+  padding: 0;
+  margin: 0;
+  color: #9593D9;
+  text-align: left;
+  word-wrap: break-word; /* Enable text wrapping */
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.733); /* Semi-transparent overlay background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+
+.centered-container {
+  width: 500px;
+  background: #313131;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  display: grid;
+  grid-gap: 5px;
+}
+
+
+.input-button {
+  border-radius: 10px;
+  background-color: #7C90DB;
+  padding: 10px 0px;
+  border-style: none;
+  color: black;
+}
+
+.input-button:hover{
+  background-color: #889ADE;
+}
+
+.project-button {
+  border-radius: 10px;
+  background-color: #7C90DB;
+  border-style: none;
+  color: black;
+  height: 40px;
+  width: 100%;
+}
+
+.project-button:hover{
+  background-color: #889ADE;
+}
+
+
+
+h1,h2,h3,h4,h5,h6 {
+  padding: 0px;
+  margin: 0px;
+  color: #F1F1F1;
+}
+
+.slim-button {
+  background-color: transparent;
+  color: #7C90DB;
+  border-style: none;
+}
+
+.slim-button:hover{
+  color: #889ADE;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background-color: var(--scrollbar-color);
+  -webkit-box-shadow: inset 0 0 6px #9593D9;
+  cursor:pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.base-grid {
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-gap: 10px;
+}
+
+.top-bar-grid {
+  display: grid;
+  grid-gap: 10px;
+}
+
+.quick-stats-top-bar-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-gap: 10px;
+}
+
+.index-content-grid {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat(2, 1fr);
+  overflow: hidden;
+}
+
+.index-graphs-grid {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-rows: 1fr 1fr;
+}
+
+.canvas-grid {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-gap: 10px;
+}
+
+.project-content-grid {
+  display: grid;
+  height: 100%;
+  grid-gap: 10px;
+  grid-template-columns: repeat(3, 1fr);
+  overflow: hidden;
+}
+
+.to-do-item-grid {
+  height: auto;
+  border-radius: 10px;
+  background-color: #252525;
+  display: grid;
+  grid-template-rows: repeat(2, auto);
+  grid-gap: 10px;
+  padding: 10px;
+  height: 100px;
+}
+
+canvas {
+  max-width: 100%;
+}
+
+.canvas-grid {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-gap: 10px;
+}
+
+
+
+
+.to-do-list-container-item {
+  padding: 10px;
+  background-color: rgb(68, 68, 68);
+  border-style: none;
+  border-radius: 10px;
+  margin-bottom: 5px;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  overflow: hidden;
+  max-height: 100px;
+  cursor: pointer;
+  position: relative;
+  grid-gap: 10px;
+}
+
+.to-do-list-container-item:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 20px; /* Adjust the height of the gradient overlay */
+  background: linear-gradient(to bottom, transparent, rgba(68, 68, 68, 0.8));
+}
+
+.to-do-list-container-item.clicked:after {
+  display: none; /* Hide the gradient when the div is clicked */
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.733); /* Semi-transparent overlay background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+
+.centered-container {
+  width: 500px;
+  background: rgb(53, 53, 53);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  display: grid;
+}
+

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Project Task Hub</title>
+    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  </head>
+  <body>
+    <div id="addTaskOverlay" class="overlay" style="display: none;">
+      <div class="centered-container" style="text-align: center;">
+          <div style="display: grid; grid-template-columns: 1fr auto;">
+              <h1 id="addTaskTitle">Add a Task</h1>
+              <button id="addTaskCloseButton" class="slim-button fa-solid fa-x"></button>
+          </div>
+          <input id="taskTitleInput" type="text" placeholder="Task Title" style="padding: 10px;">
+          <textarea name="taskDescriptionTextarea" id="taskDescriptionTextarea" cols="30" rows="10"></textarea>
+          <button id="saveTaskButton" class="input-button">Add Project</button>
+      </div>
+    </div>
+
+    <div id="editTaskOverlay" class="overlay" style="display: none;">
+      <div class="centered-container" style="text-align: center;">
+          <div style="display: grid; grid-template-columns: 1fr auto;">
+              <h1>Edit Task</h1>
+              <button id="editTaskCloseButton" class="slim-button fa-solid fa-x"></button>
+          </div>
+          <input id="editTaskTitle" type="text" placeholder="Task Title" style="padding: 10px;">
+          <textarea name="editTaskDescription" id="editTaskDescription" cols="30" rows="10"></textarea>
+          <div style="display: grid; grid-template-columns: 1fr auto; grid-gap: 5px">
+            <button id="updateTaskButton" class="input-button">Update Task</button>
+            <button id="deleteTaskButton" class="slim-button fas fa-trash"></button>
+          </div>
+        </div>
+    </div>
+
+    <div id="deleteTaskOverlay" class="overlay" style="display: none;">
+      <div class="centered-container" style="text-align: center;">
+        <h2>Are you sure you want to delete?</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; grid-gap: 5px">
+          <button id="confirmDeleteTaskButton" class="input-button">Yes</button>
+          <button id="noDeleteTaskButton" class="input-button">No</button>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="base-grid">
+      <div class="top-bar-grid container">
+        <div id="projectNameDiv" style="display: grid; grid-template-columns: auto 1fr auto;">
+            <button id="homeButton" class="slim-button fas fa-house"></button>
+            <h2 id="projectNameHeader">Project Name</h2>
+            <button id="openEditProject" class="slim-button fas fa-edit"></button>
+        </div>
+
+        <div id="editProjectNameDiv" style="display: none; grid-template-columns: 1fr auto auto;">
+          <input id="editProjectNameInput" type="text" style="padding: 10px; font-size: 16px">
+          <button id="confirmProjectNameChange" class="slim-button fas fa-check"></button>
+          <button id="backProjectNameChange" class="slim-button fas fa-arrow-left"></button>
+        </div>
+
+        <div id="completeProjectDiv" style="display: none; grid-template-rows: 1fr auto auto; grid-gap: 10px;">
+          <h2 id="completeText">Do you want to complete this project?</h2>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; grid-gap: 10px;">
+            <button id="confirmCompleteProject" class="input-button fas fa-check"></button>
+            <button id="backCompleteProject" class="input-button fas fa-arrow-left"></button>  
+          </div>
+        </div>
+
+        <div id="deleteProjectDiv" style="display: none; grid-template-rows: 1fr auto auto; grid-gap: 10px;">
+          <input id="confirmDeleteProjectInput" type="text" placeholder="Type 'DELETE'" style="padding: 10px; font-size: 16px;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; grid-gap: 10px;">
+            <button id="confirmDeleteProjectButton" class="input-button fas fa-check"></button>
+            <button id="backDeleteProjectButton" class="input-button fas fa-arrow-left"></button>  
+          </div>
+        </div>
+
+
+
+        <div id="quickProjectStats" class="quick-stats-top-bar-grid">
+          <div class="inner-container header-and-container">
+            <h3 id="activeTaskCount"></h3>
+            <h5>Active Tasks</h5>
+          </div>
+          <div class="inner-container header-and-container">
+            <h3 id="completeTaskCount"></h3>
+            <h5>Complete Tasks</h5>
+          </div>
+          <div class="inner-container header-and-container">
+            <h3 id="newTaskCount"></h3>
+            <h5>New Tasks (7 Days)</h5>
+          </div>
+          <div class="inner-container header-and-container">
+            <h3 id="newCompleteCount"></h3>
+            <h5>Complete (7 Days)</h5>
+          </div>
+          <div class="inner-container header-and-container">
+            <h3 id="projectDateCreatedText"></h3>
+            <h5>Project Created</h5>
+          </div>  
+          <div class="inner-container header-and-container">
+            <h3 id="projectStatusText"></h3>
+            <h5>Status</h5>
+          </div>  
+        </div>
+        <div id="editProjectDiv" style="display: none; grid-template-columns: repeat(3, 1fr); grid-gap: 10px;">
+          <button id="editProjectNameButton" class="input-button">Edit Project Name</button>
+          <button id="completeProjectButton" class="input-button">Complete Project</button>
+          <button id="deleteProjectButton" class="input-button">Delete Project</button>
+        </div>
+      </div>
+      <div class="project-content-grid">
+        <div style="overflow-y: hidden; display: grid; grid-gap: 5px;">
+            <div class="container" style="display: grid; grid-template-rows: auto 1fr; overflow: hidden;">
+                <div style="display: grid; grid-template-columns: 1fr auto; padding-bottom: 10px;">
+                    <h2>Active Tasks</h2>
+                    <button id="addActiveTaskButton" class="slim-button fas fa-plus"></button>
+                </div>
+                <div style="display: grid; grid-gap: 5px; overflow: auto;">
+                    <div id="todoListOutput">
+                    </div>
+                </div>  
+            </div>
+        </div>
+        <div style="overflow: hidden; display: grid; grid-gap: 5px;">
+            <div class="container" style="display: grid; grid-template-rows: auto 1fr; overflow: hidden;">
+                <div style="display: grid; grid-template-columns: 1fr auto; padding-bottom: 10px;;">
+                    <h2>In Progress Tasks</h2>
+                    <button id="addInProgressTaskButton" class="slim-button fas fa-plus"></button>
+                </div>
+                <div style="display: grid; grid-gap: 5px; overflow: auto;">
+                  <div id="inprogressListOutput">
+                  </div>
+              </div>  
+            </div>
+        </div>
+        <div style="overflow: hidden; display: grid; grid-gap: 5px;">
+            <div class="container" style="display: grid; grid-template-rows: auto 1fr; overflow: hidden;">
+                <div style="display: grid; grid-template-columns: 1fr auto; padding-bottom: 10px;;">
+                    <h2>Complete Tasks</h2>
+                    <button id="addCompleteTaskButton" class="slim-button fas fa-plus"></button>
+                </div>
+                <div style="display: grid; grid-gap: 5px; overflow: auto;">
+                  <div id="completeListOutput">
+                  </div>
+                </div>  
+            </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="taskView.js"></script>
+  <script src="editTask.js"></script>
+  <script src="deleteTask.js"></script>
+  <script src="editProject.js"></script>
+  <script src="taskQuickInfo.js"></script>
+</html>
