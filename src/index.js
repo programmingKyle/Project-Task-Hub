@@ -233,14 +233,17 @@ ipcMain.handle('add-task', (req, data) => {
   if (!data || !data.status || !data.projectID || !data.taskTitle || !data.taskDescription) return;
   return new Promise((resolve, reject) => {
     let currentDate = 'datetime("now", "localtime")';
-    let dateCompleted = data.status === 'Complete' ? currentDate : null;
 
-    // SQL statement
-    let sqlStatement = 'INSERT INTO tasks (projectID, status, taskTitle, taskDescription, dateCreated, dateModified, dateCompleted) VALUES (?, ?, ?, ?, ' + currentDate + ', ' + currentDate + ', ?)';
+    // SQL statements
+    let sqlStatementComplete = 'INSERT INTO tasks (projectID, status, taskTitle, taskDescription, dateCreated, dateModified, dateCompleted) VALUES (?, ?, ?, ?, ' + currentDate + ', ' + currentDate + ', ' + currentDate + ')';
+    let sqlStatementIncomplete = 'INSERT INTO tasks (projectID, status, taskTitle, taskDescription, dateCreated, dateModified, dateCompleted) VALUES (?, ?, ?, ?, ' + currentDate + ', ' + currentDate + ', NULL)';
+
+    // Choose the appropriate SQL statement based on data.status
+    let sqlStatement = (data.status === 'Complete') ? sqlStatementComplete : sqlStatementIncomplete;
 
     // Your database query to get active project names and IDs sorted by dateModified
     db.run(sqlStatement,
-      [data.projectID, data.status, data.taskTitle, data.taskDescription, dateCompleted], 
+      [data.projectID, data.status, data.taskTitle, data.taskDescription], 
       (err) => {
         if (err) {
           reject(err);
@@ -250,6 +253,7 @@ ipcMain.handle('add-task', (req, data) => {
       });
   });
 });
+
 
 ipcMain.handle('get-tasks', (req, data) => {
   if (!data || !data.projectID || !data.status) return;
@@ -548,22 +552,22 @@ ipcMain.handle('graph-counts', (req, data) => {
   let result;
 
   switch(data.request){
-    case 'DailyTaskCount':
-      result = graphDailyTaskCount(data.days);
+    case 'DailyCompleteTaskCount':
+      result = graphDailyTaskCountComplete(data.days);
       break;
-    case 'MonthlyTaskCount':
-      result = graphMonthlyTaskCount(data.months);
+    case 'MonthlyCompleteTaskCount':
+      result = graphMonthlyTaskCountComplete(data.months);
       break;
   }
   return result;
 });
 
-async function graphDailyTaskCount(days) {
+async function graphDailyTaskCountComplete(days) {
   const results = [];
   for (const day of days) {
     const count = await new Promise((resolve, reject) => {
       db.get(
-        'SELECT COUNT(*) AS taskCount FROM tasks WHERE strftime("%Y-%m-%d", dateCreated) = ? AND status = "Complete"',
+        'SELECT COUNT(*) AS taskCount FROM tasks WHERE strftime("%Y-%m-%d", dateCompleted) = ? AND status = "Complete"',
         [day],
         (err, row) => {
           if (err) {
@@ -579,13 +583,13 @@ async function graphDailyTaskCount(days) {
   return results;
 }
 
-async function graphMonthlyTaskCount(months) {
+async function graphMonthlyTaskCountComplete(months) {
   const results = [];
 
   for (const month of months) {
     const count = await new Promise((resolve, reject) => {
       db.get(
-        'SELECT COUNT(*) AS taskCount FROM tasks WHERE strftime("%Y-%m", dateCreated) = ? AND status = "Complete"',
+        'SELECT COUNT(*) AS taskCount FROM tasks WHERE strftime("%Y-%m", dateCompleted) = ? AND status = "Complete"',
         [month],
         (err, row) => {
           if (err) {

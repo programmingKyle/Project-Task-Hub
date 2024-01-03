@@ -211,14 +211,14 @@ async function getLast30Days() {
   
 document.addEventListener('DOMContentLoaded', async () => {
     var last12Months = await getLast12Months();
-    var last12MonthsTaskCount = await api.graphCounts({request: 'MonthlyTaskCount', months: last12Months});
+    var last12MonthsTaskCount = await api.graphCounts({request: 'MonthlyCompleteTaskCount', months: last12Months});
     var monthLabels = await convertToMonthLabels(last12Months);
     last12MonthsTaskCount.reverse();
     monthLabels.reverse();
     await plotAnnualBarGraph(monthLabels, last12MonthsTaskCount);
 
     var last30Days = await getLast30Days();
-    var last30DaysTaskCount = await api.graphCounts({request: 'DailyTaskCount', days: last30Days});
+    var last30DaysTaskCount = await api.graphCounts({request: 'DailyCompleteTaskCount', days: last30Days});
     await plotMonthlyLineGraph(last30Days, last30DaysTaskCount);
 });
 
