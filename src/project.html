@@ -7,6 +7,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   </head>
   <body>
+    <div id="addBulletpointOverlay" class="overlay" style="display: none;">
+      <div class="centered-container" style="text-align: center;">
+          <div style="display: grid; grid-template-columns: 1fr auto;">
+              <h1>Add Bulletpoint</h1>
+              <button id="addBulletpointCloseButton" class="slim-button fa-solid fa-x"></button>
+          </div>
+          <input id="bulletpointInput" type="text" placeholder="Bulletpoint" style="padding: 10px;">
+          <button id="addBulletPointButton" class="input-button">Add Bulletpoint</button>
+      </div>
+    </div>
+
     <div id="addTaskOverlay" class="overlay" style="display: none;">
       <div class="centered-container" style="text-align: center;">
           <div style="display: grid; grid-template-columns: 1fr auto;">
@@ -155,4 +166,5 @@
   <script src="deleteTask.js"></script>
   <script src="editProject.js"></script>
   <script src="taskQuickInfo.js"></script>
+  <script src="bulletpoint.js"></script>
 </html>

@@ -95,17 +95,21 @@ async function populateTasks(tasks, status){
         const toDoControlDiv_el = document.createElement('div');
         toDoControlDiv_el.classList.add('to-do-contol-grid');
 
-        const addBulletpointBullet_el = document.createElement('button');
-        addBulletpointBullet_el.textContent = 'Add Bullet Point';
-        addBulletpointBullet_el.className = 'input-button';
-        addBulletpointBullet_el.style.display = 'none';
+        const toggleAddBulletPointButton_el = document.createElement('button');
+        toggleAddBulletPointButton_el.textContent = 'Add Bullet Point';
+        toggleAddBulletPointButton_el.className = 'input-button';
+        toggleAddBulletPointButton_el.style.display = 'none';
+
+        toggleAddBulletPointButton_el.addEventListener('click', () => {
+            toggleAddBulletPoint();
+        });
 
         const editTaskButton_el = document.createElement('button');
         editTaskButton_el.textContent = 'Edit';
         editTaskButton_el.className = 'input-button';
         editTaskButton_el.style.display = 'none';
 
-        toDoControlDiv_el.append(addBulletpointBullet_el);
+        toDoControlDiv_el.append(toggleAddBulletPointButton_el);
         toDoControlDiv_el.append(editTaskButton_el);
     
         const toDoText_el = document.createElement('p');
@@ -142,7 +146,7 @@ async function populateTasks(tasks, status){
                 toDoText_el.style.display = 'grid';
               }
               toDoItemContainer_el.style.maxHeight = 'none';
-              addBulletpointBullet_el.style.display = 'grid';
+              toggleAddBulletPointButton_el.style.display = 'grid';
               editTaskButton_el.style.display = 'grid';
               toDoItemContainer_el.classList.add('clicked'); // Add the 'clicked' class
               isDivClicked = true;
@@ -151,7 +155,7 @@ async function populateTasks(tasks, status){
                 toDoText_el.style.display = 'none';
               }    
               toDoItemContainer_el.style.maxHeight = '100px';
-              addBulletpointBullet_el.style.display = 'none';
+              toggleAddBulletPointButton_el.style.display = 'none';
               editTaskButton_el.style.display = 'none';
               toDoItemContainer_el.classList.remove('clicked'); // Remove the 'clicked' class
               isDivClicked = false;
