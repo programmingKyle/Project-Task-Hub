@@ -31,6 +31,19 @@ db.run(`
   )
 `);
 
+db.run(`
+  CREATE TABLE IF NOT EXISTS bulletpoints (
+    id INTEGER PRIMARY KEY,
+    todoid INT,
+    projectID INT,
+    bulletpoint TEXT,
+    status TEXT,
+    dateCreated DATE,
+    dateModified DATE,
+    dateCompleted DATE
+  )
+`);
+
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
