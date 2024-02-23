@@ -108,7 +108,7 @@ p {
 .input-button {
   border-radius: 10px;
   background-color: #7C90DB;
-  padding: 10px 0px;
+  padding: 10px;
   border-style: none;
   color: black;
 }
@@ -284,6 +284,12 @@ canvas {
 
 .to-do-list-container-item.clicked:after {
   display: none; /* Hide the gradient when the div is clicked */
+}
+
+.to-do-contol-grid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-gap: 5px;
 }
 
 .overlay {
