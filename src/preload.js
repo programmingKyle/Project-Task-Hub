@@ -14,4 +14,6 @@ contextBridge.exposeInMainWorld('api', {
     taskQuickInfoHandler: (data) => ipcRenderer.invoke('task-quick-info-handler', data),
 
     graphCounts: (data) => ipcRenderer.invoke('graph-counts', data),
+
+    bulletpointHandler: (data) => ipcRenderer.invoke('bulletpoint-handler', data),
 });

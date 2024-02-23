@@ -101,6 +101,7 @@ async function populateTasks(tasks, status){
         toggleAddBulletPointButton_el.style.display = 'none';
 
         toggleAddBulletPointButton_el.addEventListener('click', () => {
+            taskID = element.id;
             toggleAddBulletPoint();
         });
 

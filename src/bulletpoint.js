@@ -11,3 +11,7 @@ function toggleAddBulletPoint(){
 addBulletpointCloseButton_el.addEventListener('click', () => {
     addBulletpointOverlay_el.style.display = 'none';
 });
+
+addBulletPointButton_el.addEventListener('click', () => {
+    api.bulletpointHandler({request: 'Add', taskID: taskID, projectID: projectID, bulletpoint: bulletpointInput_el.value});
+});

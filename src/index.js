@@ -34,7 +34,7 @@ db.run(`
 db.run(`
   CREATE TABLE IF NOT EXISTS bulletpoints (
     id INTEGER PRIMARY KEY,
-    todoid INT,
+    taskID INT,
     projectID INT,
     bulletpoint TEXT,
     status TEXT,
@@ -618,4 +618,26 @@ async function graphMonthlyTaskCountComplete(months) {
   }
 
   return results;
+}
+
+ipcMain.handle('bulletpoint-handler', async(req, data) => {
+  if (!data || !data.request) return;
+  switch (data.request){
+    case 'Add':
+      addBulletPoint(data.taskID, data.projectID, data.bulletpoint);
+  }
+});
+
+function addBulletPoint(taskID, projectID, bulletpoint){
+  if (!taskID || !projectID || !bulletpoint) return;
+  let currentDate = 'datetime("now", "localtime")';
+
+  const sqlStatement = `INSERT INTO bulletpoints (taskID, projectID, bulletpoint, status, dateCreated, dateModified) 
+  VALUES (?, ?, ?, 'active', ${currentDate}, ${currentDate})`;
+  const values = [taskID, projectID, bulletpoint];
+  try {
+    db.run(sqlStatement, values);
+  } catch (error) {
+    console.error(error);
+  }
 }
