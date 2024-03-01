@@ -123,7 +123,9 @@ async function populateTasks(tasks, status){
 
         const bulletpointsDiv_el = document.createElement('div');
         bulletpointsDiv_el.style.display = 'none';
+        bulletpointsDiv_el.className = 'bulletpoints-div';
         const bulletpointList_el = document.createElement('ul');
+        bulletpointList_el.className = 'bulletpoint-list';
         bulletpointsDiv_el.append(bulletpointList_el);
         
         toDoItemContainer_el.append(toDoItemHeaderContainer_el);
@@ -155,7 +157,7 @@ async function populateTasks(tasks, status){
               }
               toDoItemContainer_el.style.maxHeight = 'none';
               toggleAddBulletPointButton_el.style.display = 'grid';
-              bulletpointsDiv_el.style.display = 'flex';
+              bulletpointsDiv_el.style.display = 'grid';
               editTaskButton_el.style.display = 'grid';
               toDoItemContainer_el.classList.add('clicked'); // Add the 'clicked' class
               await viewBulletpoints(bulletpointList_el, projectID, element.id)
