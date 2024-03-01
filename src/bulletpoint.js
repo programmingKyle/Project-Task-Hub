@@ -14,6 +14,10 @@ addBulletpointCloseButton_el.addEventListener('click', () => {
 });
 
 addBulletPointButton_el.addEventListener('click', async () => {
+    if (bulletpointInput_el.value === '') {
+        bulletpointInput_el.classList.add('input-error');
+        return;
+    }
     await api.bulletpointHandler({request: 'Add', taskID: taskID, projectID: projectID, bulletpoint: bulletpointInput_el.value});
     addBulletpointOverlay_el.style.display = 'none';
     await viewBulletpoints(currentBulletpointList, taskID, projectID);
