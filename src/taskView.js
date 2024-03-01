@@ -141,7 +141,7 @@ async function populateTasks(tasks, status){
             completeListOutput_el.appendChild(toDoItemContainer_el);
         }
     
-        toDoItemContainer_el.addEventListener('click', () => {
+        toDoItemContainer_el.addEventListener('click', async () => {
             if (!isDivClicked) {
               if (element.status === 'Complete'){
                 toDoText_el.style.display = 'grid';
@@ -150,6 +150,7 @@ async function populateTasks(tasks, status){
               toggleAddBulletPointButton_el.style.display = 'grid';
               editTaskButton_el.style.display = 'grid';
               toDoItemContainer_el.classList.add('clicked'); // Add the 'clicked' class
+              await viewBulletpoints(projectID, element.id)
               isDivClicked = true;
             } else {
               if (element.status === 'Complete'){

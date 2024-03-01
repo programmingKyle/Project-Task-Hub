@@ -625,8 +625,26 @@ ipcMain.handle('bulletpoint-handler', async(req, data) => {
   switch (data.request){
     case 'Add':
       addBulletPoint(data.taskID, data.projectID, data.bulletpoint);
+    case 'View':
+      const results = await getBulletpoints(data.projectID, data.taskID);
+      return results;
   }
 });
+
+async function getBulletpoints(projectID, taskID){
+  if (!projectID, !taskID) return;
+  const sqlStatement = `SELECT * FROM bulletpoints WHERE projectID = ${projectID} AND taskID = ${taskID}`;
+  return new Promise((resolve, reject) => {
+    db.all(sqlStatement, (err, rows) => {
+      if (err){
+        reject(err);
+      } else {
+        console.log(rows);
+        resolve(rows);
+      }
+    })
+  });
+};
 
 function addBulletPoint(taskID, projectID, bulletpoint){
   if (!taskID || !projectID || !bulletpoint) return;
