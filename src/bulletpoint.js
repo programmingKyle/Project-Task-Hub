@@ -23,6 +23,11 @@ async function viewBulletpoints(container, projectID, taskID){
     currentBulletpointList = container;
     currentBulletpointList.textContent = '';
     const bulletpoints = await api.bulletpointHandler({request: 'View', projectID: projectID, taskID: taskID});
+    if (bulletpoints.length === 0){
+        container.style.display = 'none';
+    } else {
+        container.style.display = 'grid';
+    }
     bulletpoints.forEach(element => {
         const text_el = document.createElement('li');
         text_el.textContent = element.bulletpoint;
