@@ -21,6 +21,7 @@ addBulletPointButton_el.addEventListener('click', async () => {
 
 async function viewBulletpoints(container, projectID, taskID){
     currentBulletpointList = container;
+    currentBulletpointList.textContent = '';
     const bulletpoints = await api.bulletpointHandler({request: 'View', projectID: projectID, taskID: taskID});
     bulletpoints.forEach(element => {
         const text_el = document.createElement('li');
