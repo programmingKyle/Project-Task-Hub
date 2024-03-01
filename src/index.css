@@ -315,3 +315,7 @@ canvas {
   display: grid;
 }
 
+.bulletpoint {
+  text-align: left;
+}
+

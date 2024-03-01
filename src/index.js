@@ -159,8 +159,6 @@ async function addProject(projectName) {
       'INSERT INTO projects (status, projectName, dateCreated, dateModified, dateCompleted) VALUES (?, ?, datetime("now", "localtime"), datetime("now", "localtime"), NULL)',
       ['active', projectName]
     );
-
-    console.log(`Project '${projectName}' added successfully.`);
   } catch (error) {
     console.error('Error adding project:', error.message);
   }
@@ -639,7 +637,6 @@ async function getBulletpoints(projectID, taskID){
       if (err){
         reject(err);
       } else {
-        console.log(rows);
         resolve(rows);
       }
     })

@@ -119,10 +119,16 @@ async function populateTasks(tasks, status){
         toDoText_el.textContent = element.taskDescription;
         
         const completeDateText_el = document.createElement('h5');
+
+        const bulletpointsDiv_el = document.createElement('div');
+        bulletpointsDiv_el.style.display = 'none';
+        const bulletpointList_el = document.createElement('ul');
+        bulletpointsDiv_el.append(bulletpointList_el);
         
         toDoItemContainer_el.append(toDoItemHeaderContainer_el);
         toDoItemContainer_el.append(completeDateText_el);
         toDoItemContainer_el.append(toDoText_el);
+        toDoItemContainer_el.append(bulletpointsDiv_el);
         toDoItemContainer_el.append(toDoControlDiv_el);
 
         //toDoItemContainer_el.append(editTaskButton_el);
@@ -148,14 +154,17 @@ async function populateTasks(tasks, status){
               }
               toDoItemContainer_el.style.maxHeight = 'none';
               toggleAddBulletPointButton_el.style.display = 'grid';
+              bulletpointsDiv_el.style.display = 'flex';
               editTaskButton_el.style.display = 'grid';
               toDoItemContainer_el.classList.add('clicked'); // Add the 'clicked' class
-              await viewBulletpoints(projectID, element.id)
+              await viewBulletpoints(bulletpointList_el, projectID, element.id)
               isDivClicked = true;
             } else {
               if (element.status === 'Complete'){
                 toDoText_el.style.display = 'none';
-              }    
+              }
+              bulletpointsDiv_el.style.display = 'none';
+              bulletpointList_el.innerHTML = '';
               toDoItemContainer_el.style.maxHeight = '100px';
               toggleAddBulletPointButton_el.style.display = 'none';
               editTaskButton_el.style.display = 'none';
