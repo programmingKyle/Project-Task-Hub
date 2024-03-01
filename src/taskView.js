@@ -100,7 +100,8 @@ async function populateTasks(tasks, status){
         toggleAddBulletPointButton_el.className = 'input-button';
         toggleAddBulletPointButton_el.style.display = 'none';
 
-        toggleAddBulletPointButton_el.addEventListener('click', () => {
+        toggleAddBulletPointButton_el.addEventListener('click', (e) => {
+            e.stopPropagation();
             taskID = element.id;
             toggleAddBulletPoint();
         });
