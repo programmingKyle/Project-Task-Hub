@@ -39,3 +39,20 @@ async function viewBulletpoints(container, projectID, taskID){
         currentBulletpointList.appendChild(text_el);
     });
 }
+
+document.addEventListener('keypress', async (event) => {
+    if (event.key === 'Enter'){
+        if (bulletpointInput_el.classList.contains('input-error')){
+            bulletpointInput_el.classList.remove('input-error');
+        }
+        if (addBulletpointOverlay_el.style.display !== 'none'){
+            if (bulletpointInput_el.value === '') {
+                bulletpointInput_el.classList.add('input-error');
+                return;
+            }
+            await api.bulletpointHandler({request: 'Add', taskID: taskID, projectID: projectID, bulletpoint: bulletpointInput_el.value});
+            await viewBulletpoints(currentBulletpointList, taskID, projectID);    
+            bulletpointInput_el.value = '';
+        }    
+    }
+});
