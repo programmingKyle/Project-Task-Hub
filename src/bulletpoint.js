@@ -23,11 +23,11 @@ addBulletPointButton_el.addEventListener('click', async () => {
     await viewBulletpoints(currentBulletpointList, taskID, projectID);
 });
 
-async function viewBulletpoints(container, projectID, taskID){
+async function viewBulletpoints(container, projectID, taskID) {
     currentBulletpointList = container;
     currentBulletpointList.textContent = '';
-    const bulletpoints = await api.bulletpointHandler({request: 'View', projectID: projectID, taskID: taskID});
-    if (bulletpoints.length === 0){
+    const bulletpoints = await api.bulletpointHandler({ request: 'View', projectID: projectID, taskID: taskID });
+    if (bulletpoints.length === 0) {
         container.style.display = 'none';
     } else {
         container.style.display = 'grid';
@@ -44,22 +44,26 @@ async function viewBulletpoints(container, projectID, taskID){
         bulletpointDeleteButton_el.classList.add('slim-button', 'fas', 'fa-trash');
         bulletpointDeleteButton_el.style.display = 'none';
 
+        bulletpointDeleteButton_el.addEventListener('click', (event) => {
+            event.stopPropagation();
+            console.log('delete bulletpoint');
+        });
+
         listItemDiv_el.append(text_el);
         listItemDiv_el.append(bulletpointDeleteButton_el);
         currentBulletpointList.appendChild(listItemDiv_el);
 
-        text_el.addEventListener('mouseenter', () => {
+        listItemDiv_el.addEventListener('mouseenter', () => {
             bulletpointDeleteButton_el.style.display = 'block';
             listItemDiv_el.classList.add('hovered');
         });
 
-        text_el.addEventListener('mouseleave', () => {
+        listItemDiv_el.addEventListener('mouseleave', () => {
             bulletpointDeleteButton_el.style.display = 'none';
             listItemDiv_el.classList.remove('hovered');
-        })
+        });
     });
 }
-
 document.addEventListener('keypress', async (event) => {
     if (event.key === 'Enter'){
         if (bulletpointInput_el.classList.contains('input-error')){
