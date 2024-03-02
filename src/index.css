@@ -338,3 +338,11 @@ canvas {
   color: green;
 }
 
+.bulletpoint-list-item-div {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.bulletpoint-list-item-div.hovered {
+  grid-template-columns: 1fr auto;
+}

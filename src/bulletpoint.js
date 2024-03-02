@@ -33,10 +33,30 @@ async function viewBulletpoints(container, projectID, taskID){
         container.style.display = 'grid';
     }
     bulletpoints.forEach(element => {
+        const listItemDiv_el = document.createElement('div');
+        listItemDiv_el.classList.add('bulletpoint-list-item-div');
+
         const text_el = document.createElement('li');
         text_el.textContent = element.bulletpoint;
         text_el.className = 'bulletpoint';
-        currentBulletpointList.appendChild(text_el);
+
+        const bulletpointDeleteButton_el = document.createElement('button');
+        bulletpointDeleteButton_el.classList.add('slim-button', 'fas', 'fa-trash');
+        bulletpointDeleteButton_el.style.display = 'none';
+
+        listItemDiv_el.append(text_el);
+        listItemDiv_el.append(bulletpointDeleteButton_el);
+        currentBulletpointList.appendChild(listItemDiv_el);
+
+        text_el.addEventListener('mouseenter', () => {
+            bulletpointDeleteButton_el.style.display = 'block';
+            listItemDiv_el.classList.add('hovered');
+        });
+
+        text_el.addEventListener('mouseleave', () => {
+            bulletpointDeleteButton_el.style.display = 'none';
+            listItemDiv_el.classList.remove('hovered');
+        })
     });
 }
 
