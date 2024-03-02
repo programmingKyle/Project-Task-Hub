@@ -7,6 +7,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   </head>
   <body>
+    <div id="deleteBulletpointOverlay" class="overlay" style="display: none;">
+      <div class="centered-container" style="text-align: center;">
+          <div style="display: grid">
+              <h2>Are you sure you want to delete?</h2>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; grid-gap: 5px;">
+            <button id="confirmDeleteBulletpointButton" class="input-button">Confirm</button>
+            <button id="cancelDeleteBulletpointButton" class="input-button">Cancel</button>  
+          </div>
+      </div>
+    </div>
+
     <div id="addBulletpointOverlay" class="overlay" style="display: none;">
       <div class="centered-container" style="text-align: center;">
           <div style="display: grid; grid-template-columns: 1fr auto;">
@@ -168,4 +180,5 @@
   <script src="editProject.js"></script>
   <script src="taskQuickInfo.js"></script>
   <script src="bulletpoint.js"></script>
+  <script src="deleteBulletpoint.js"></script>
 </html>

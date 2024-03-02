@@ -46,7 +46,7 @@ async function viewBulletpoints(container, projectID, taskID) {
 
         bulletpointDeleteButton_el.addEventListener('click', (event) => {
             event.stopPropagation();
-            console.log('delete bulletpoint');
+            deleteBulletpointOverlay_el.style.display = 'flex';
         });
 
         listItemDiv_el.append(text_el);
