@@ -626,8 +626,26 @@ ipcMain.handle('bulletpoint-handler', async(req, data) => {
     case 'View':
       const results = await getBulletpoints(data.projectID, data.taskID);
       return results;
+    case 'Delete':
+      await deleteBulletpoint(data.bulletpointID);
+      return;
   }
 });
+
+async function deleteBulletpoint(id) {
+  if (!id) return;
+  const sqlStatement = 'DELETE FROM bulletpoints WHERE id = ?';
+
+  return new Promise((resolve, reject) => {
+      db.run(sqlStatement, [id], (err) => {
+          if (err) {
+              reject(err);
+          } else {
+              resolve();
+          }
+      });
+  });
+}
 
 async function getBulletpoints(projectID, taskID){
   if (!projectID, !taskID) return;
