@@ -10,4 +10,6 @@ cancelDeleteBulletpointButton_el.addEventListener('click', () => {
 
 confirmDeleteBulletpointButton_el.addEventListener('click', async () => {
     await api.bulletpointHandler({request: 'Delete', bulletpointID: currentDeleteBulletpointID});
+    deleteBulletpointOverlay_el.style.display = 'none';
+    await viewBulletpoints(currentBulletpointList, taskID, projectID);
 });
