@@ -645,8 +645,15 @@ ipcMain.handle('bulletpoint-handler', async(req, data) => {
     case 'Delete':
       await deleteBulletpoint(data.bulletpointID);
       return;
+    case 'Edit':
+      await editBulletpoint(data.bulletpointID, data.editBulletpoint);
+      return;
   }
 });
+
+async function editBulletpoint(id, bulletpoint){
+  console.log(id, bulletpoint);
+}
 
 async function deleteBulletpoint(id) {
   if (!id) return;

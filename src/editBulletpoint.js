@@ -9,6 +9,9 @@ editBulletpointCloseButton_el.addEventListener('click', () => {
     editBulletpointOverlay_el.style.display = 'none';
 });
 
-editBulletPointButton_el.addEventListener('click', () => {
+editBulletPointButton_el.addEventListener('click', async () => {
     console.log(`Edit ${currentEditBulletpointID}`);
+    await api.bulletpointHandler({request: 'Edit', bulletpointID: currentEditBulletpointID, editBulletpoint: editBulletpointInput_el.value});
+    editBulletpointInput_el.value = '';
+    editBulletpointOverlay_el.style.display = 'none';
 });
