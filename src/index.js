@@ -223,6 +223,14 @@ async function deleteProject(projectID) {
         resolve();
       }
     });
+    db.run('DELETE FROM bulletpoints WHERE projectID = ?', 
+    [projectID], (err) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve();
+      }
+    });
   });
 }
 
@@ -383,7 +391,6 @@ ipcMain.handle('delete-task', (req, data) => {
       }
     });
   });
-
 });
 
 
