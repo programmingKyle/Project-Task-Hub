@@ -7,6 +7,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   </head>
   <body>
+    <div id="editBulletpointOverlay" class="overlay" style="display: none;">
+      <div class="centered-container" style="text-align: center;">
+          <div style="display: grid; grid-template-columns: 1fr auto;">
+              <h1>Edit Bulletpoint</h1>
+              <button id="editBulletpointCloseButton" class="slim-button fa-solid fa-x"></button>
+          </div>
+          <input id="editBulletpointInput" type="text" placeholder="Bulletpoint" style="padding: 10px;">
+          <button id="editBulletPointButton" class="input-button">Edit Bulletpoint</button>
+      </div>
+    </div>
+
+
     <div id="deleteBulletpointOverlay" class="overlay" style="display: none;">
       <div class="centered-container" style="text-align: center;">
           <div style="display: grid">
@@ -181,4 +193,5 @@
   <script src="taskQuickInfo.js"></script>
   <script src="bulletpoint.js"></script>
   <script src="deleteBulletpoint.js"></script>
+  <script src="editBulletpoint.js"></script>
 </html>

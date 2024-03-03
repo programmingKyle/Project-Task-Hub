@@ -145,7 +145,7 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 .slim-button:hover{
-  color: #889ADE;
+  color: #98aaeb;
 }
 
 ::-webkit-scrollbar {
@@ -344,5 +344,5 @@ canvas {
 }
 
 .bulletpoint-list-item-div.hovered {
-  grid-template-columns: 1fr auto;
+  grid-template-columns: 1fr auto auto;
 }

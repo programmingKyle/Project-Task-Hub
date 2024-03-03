@@ -46,6 +46,12 @@ async function viewBulletpoints(container, projectID, taskID) {
         editBulletpointButton_el.classList.add('slim-button', 'fas', 'fa-edit');
         editBulletpointButton_el.style.display = 'none';
 
+        editBulletpointButton_el.addEventListener('click', (event) => {
+            event.stopPropagation();
+            currentEditBulletpointID = element.id;
+            editBulletpointOverlay_el.style.display = 'flex';
+        });
+
         const bulletpointDeleteButton_el = document.createElement('button');
         bulletpointDeleteButton_el.classList.add('slim-button', 'fas', 'fa-trash');
         bulletpointDeleteButton_el.style.display = 'none';
@@ -63,11 +69,13 @@ async function viewBulletpoints(container, projectID, taskID) {
 
         listItemDiv_el.addEventListener('mouseenter', () => {
             bulletpointDeleteButton_el.style.display = 'block';
+            editBulletpointButton_el.style.display = 'block';
             listItemDiv_el.classList.add('hovered');
         });
 
         listItemDiv_el.addEventListener('mouseleave', () => {
             bulletpointDeleteButton_el.style.display = 'none';
+            editBulletpointButton_el.style.display = 'none';
             listItemDiv_el.classList.remove('hovered');
         });
     });
