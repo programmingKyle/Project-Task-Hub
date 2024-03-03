@@ -390,6 +390,15 @@ ipcMain.handle('delete-task', (req, data) => {
         resolve();
       }
     });
+
+    db.run('DELETE FROM bulletpoints WHERE taskID = ?', 
+    [data.taskID], (err) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve();
+      }
+    });
   });
 });
 
