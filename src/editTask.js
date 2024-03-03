@@ -17,6 +17,7 @@ async function toggleEditTask(title, description){
         editTaskTitle_el.value = title;
         editTaskDescription_el.value = description;
         editTaskOverlay_el.style.display = 'flex';
+        editTaskTitle_el.focus();
     } else {
         isEditingTask = false;
         currentOpenEditTask = '';

@@ -47,6 +47,7 @@ function toggleEditProjectNameDiv(){
         projectNameDiv_el.style.display = 'none';
         editProjectNameDiv_el.style.display = 'grid';
         editProjectDiv_el.style.display = 'none';
+        editProjectNameInput_el.focus();
     } else {
         isEditProjectNameOpen = false;
         projectNameDiv_el.style.display = 'grid';
@@ -82,6 +83,7 @@ function toggleDeleteProjectDiv(){
         projectNameDiv_el.style.display = 'none';
         editProjectDiv_el.style.display = 'none';
         deleteProjectDiv_el.style.display = 'grid';
+        confirmDeleteProjectInput_el.focus();
     } else {
         isDeleteProjectDivOpen = false;
         projectNameDiv_el.style.display = 'grid';
