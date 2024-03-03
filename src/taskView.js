@@ -24,6 +24,8 @@ let currentAddStatus; // This is used when adding a task. Clicking on a button w
 let currentOpenEditTaskID;
 let currentOpenEditTaskStatus;
 
+let previousTaskContainer; // This will be used to close task items when clicking another
+
 document.addEventListener('DOMContentLoaded', async () => {
     await initalPopulation();
     await populateAllTasks();
@@ -69,9 +71,10 @@ async function populateTaskCategory(category){
 
 async function populateTasks(tasks, status){
     tasks.forEach(element => {
-        let isDivClicked = false;
         const toDoItemContainer_el = document.createElement('div');
         toDoItemContainer_el.className = 'to-do-list-container-item';
+
+        toDoItemContainer_el.isDivClicked = false;
         
         const toDoItemHeaderContainer_el = document.createElement('div');
         toDoItemHeaderContainer_el.style.display = 'grid';
@@ -151,7 +154,9 @@ async function populateTasks(tasks, status){
         }
     
         toDoItemContainer_el.addEventListener('click', async () => {
-            if (!isDivClicked) {
+            closePreviousContainer(previousTaskContainer);
+            previousTaskContainer = toDoItemContainer_el;
+            if (!toDoItemContainer_el.isDivClicked) {
               if (element.status === 'Complete'){
                 toDoText_el.style.display = 'grid';
               }
@@ -161,7 +166,7 @@ async function populateTasks(tasks, status){
               editTaskButton_el.style.display = 'grid';
               toDoItemContainer_el.classList.add('clicked'); // Add the 'clicked' class
               await viewBulletpoints(bulletpointList_el, element.id, projectID)
-              isDivClicked = true;
+              toDoItemContainer_el.isDivClicked = true;
             } else {
               if (element.status === 'Complete'){
                 toDoText_el.style.display = 'none';
@@ -172,7 +177,7 @@ async function populateTasks(tasks, status){
               toggleAddBulletPointButton_el.style.display = 'none';
               editTaskButton_el.style.display = 'none';
               toDoItemContainer_el.classList.remove('clicked'); // Remove the 'clicked' class
-              isDivClicked = false;
+              toDoItemContainer_el.isDivClicked = false;
             }
           });
                           
@@ -215,6 +220,22 @@ async function populateTasks(tasks, status){
     });
 }
 
+function closePreviousContainer(container) {
+    if (container) {
+        const previousBulletpointsDiv = container.querySelector('.bulletpoints-div');
+        const previousBulletpointList = container.querySelector('.bulletpoint-list');
+        const inputButtons = container.querySelectorAll('.input-button');
+
+        container.isDivClicked = false;
+        previousBulletpointsDiv.style.display = 'none';
+        previousBulletpointList.innerHTML = '';
+        container.style.maxHeight = '100px';
+        inputButtons.forEach(element => {
+            element.style.display = 'none';
+        });
+        container.classList.remove('clicked');
+    }
+}
 
 homeButton_el.addEventListener('click', () => {
     window.location.href = `index.html`;
