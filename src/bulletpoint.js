@@ -81,3 +81,10 @@ document.addEventListener('keypress', async (event) => {
         }    
     }
 });
+
+document.addEventListener('keydown', async (event) => {
+    if (event.key === 'Escape' && addBulletpointOverlay_el.style.display !== 'none') {
+        console.log('Escape');
+        addBulletpointOverlay_el.style.display = 'none';
+    }
+});
