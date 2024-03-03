@@ -652,7 +652,17 @@ ipcMain.handle('bulletpoint-handler', async(req, data) => {
 });
 
 async function editBulletpoint(id, bulletpoint){
-  console.log(id, bulletpoint);
+  if (!id || !bulletpoint) return;
+  return new Promise((resolve, reject) => {
+    db.run('UPDATE bulletpoints SET bulletpoint = ?, dateModified = datetime("now", "localtime") WHERE id = ?', 
+    [bulletpoint, id], (err) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve();
+      }
+    });
+  });
 }
 
 async function deleteBulletpoint(id) {

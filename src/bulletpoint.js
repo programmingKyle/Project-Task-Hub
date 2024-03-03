@@ -51,7 +51,7 @@ async function viewBulletpoints(container, projectID, taskID) {
             editBulletpointInput_el.focus();
             currentEditBulletpointID = element.id;
             editBulletpointInput_el.value = element.bulletpoint;
-            editBulletpointOverlay_el.style.display = 'flex';
+            editBulletpoint(element.id, element.taskID, element.projectID);
         });
 
         const bulletpointDeleteButton_el = document.createElement('button');
