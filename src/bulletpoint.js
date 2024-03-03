@@ -22,10 +22,12 @@ addBulletPointButton_el.addEventListener('click', async () => {
     }
     await api.bulletpointHandler({request: 'Add', taskID: taskID, projectID: projectID, bulletpoint: bulletpointInput_el.value});
     addBulletpointOverlay_el.style.display = 'none';
+    bulletpointInput_el.value = '';
     await viewBulletpoints(currentBulletpointList, taskID, projectID);
 });
 
-async function viewBulletpoints(container, projectID, taskID) {
+async function viewBulletpoints(container, taskID, projectID) {
+    console.log(taskID);
     currentBulletpointList = container;
     currentBulletpointList.textContent = '';
     const bulletpoints = await api.bulletpointHandler({ request: 'View', projectID: projectID, taskID: taskID });

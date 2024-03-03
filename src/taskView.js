@@ -160,7 +160,7 @@ async function populateTasks(tasks, status){
               bulletpointsDiv_el.style.display = 'grid';
               editTaskButton_el.style.display = 'grid';
               toDoItemContainer_el.classList.add('clicked'); // Add the 'clicked' class
-              await viewBulletpoints(bulletpointList_el, projectID, element.id)
+              await viewBulletpoints(bulletpointList_el, element.id, projectID)
               isDivClicked = true;
             } else {
               if (element.status === 'Complete'){
