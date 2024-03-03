@@ -222,18 +222,21 @@ homeButton_el.addEventListener('click', () => {
 
 addActiveTaskButton_el.addEventListener('click', () => {
     addTaskOverlay_el.style.display = 'flex';
+    taskTitleInput_el.focus();
     addTaskTitle_el.textContent = 'Add Active Task';
     currentAddStatus = 'Active';
 });
 
 addInProgressTaskButton_el.addEventListener('click', () => {
     addTaskOverlay_el.style.display = 'flex';
+    taskTitleInput_el.focus();
     addTaskTitle_el.textContent = 'Add In Progress Task';
     currentAddStatus = 'InProgress';
 });
 
 addCompleteTaskButton_el.addEventListener('click', () => {
     addTaskOverlay_el.style.display = 'flex';
+    taskTitleInput_el.focus();
     addTaskTitle_el.textContent = 'Add Complete Task';
     currentAddStatus = 'Complete';
 });

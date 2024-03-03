@@ -7,6 +7,7 @@ let currentBulletpointList;
 
 function toggleAddBulletPoint(){
     addBulletpointOverlay_el.style.display = 'flex';
+    bulletpointInput_el.focus();
 }
 
 addBulletpointCloseButton_el.addEventListener('click', () => {
@@ -41,6 +42,10 @@ async function viewBulletpoints(container, projectID, taskID) {
         text_el.textContent = element.bulletpoint;
         text_el.className = 'bulletpoint';
 
+        const editBulletpointButton_el = document.createElement('button');
+        editBulletpointButton_el.classList.add('slim-button', 'fas', 'fa-edit');
+        editBulletpointButton_el.style.display = 'none';
+
         const bulletpointDeleteButton_el = document.createElement('button');
         bulletpointDeleteButton_el.classList.add('slim-button', 'fas', 'fa-trash');
         bulletpointDeleteButton_el.style.display = 'none';
@@ -52,6 +57,7 @@ async function viewBulletpoints(container, projectID, taskID) {
         });
 
         listItemDiv_el.append(text_el);
+        listItemDiv_el.append(editBulletpointButton_el);
         listItemDiv_el.append(bulletpointDeleteButton_el);
         currentBulletpointList.appendChild(listItemDiv_el);
 

@@ -12,6 +12,7 @@ const selectedProjectStatusHeader_el = document.getElementById('selectedProjectS
 
 addProjectButton_el.addEventListener('click', () => {
     addProjectOverlay_el.style.display = 'flex';
+    projectNameInput_el.focus();
 });
 
 addProjectCloseButton_el.addEventListener('click', () => {
