@@ -3,6 +3,14 @@ const confirmDeleteBulletpointButton_el = document.getElementById('confirmDelete
 const cancelDeleteBulletpointButton_el = document.getElementById('cancelDeleteBulletpointButton');
 
 let currentDeleteBulletpointID;
+let currentDeleteTaskID;
+let currentDeleteProjectID;
+
+function deleteBulletpoint(bulletpointID, taskID, projectID){
+    currentDeleteBulletpointID = bulletpointID;
+    currentDeleteTaskID = taskID;
+    currentDeleteProjectID = projectID;
+}
 
 cancelDeleteBulletpointButton_el.addEventListener('click', () => {
     deleteBulletpointOverlay_el.style.display = 'none';
@@ -11,5 +19,5 @@ cancelDeleteBulletpointButton_el.addEventListener('click', () => {
 confirmDeleteBulletpointButton_el.addEventListener('click', async () => {
     await api.bulletpointHandler({request: 'Delete', bulletpointID: currentDeleteBulletpointID});
     deleteBulletpointOverlay_el.style.display = 'none';
-    await viewBulletpoints(currentBulletpointList, taskID, projectID);
+    await viewBulletpoints(currentBulletpointList, currentDeleteTaskID, currentDeleteProjectID);
 });

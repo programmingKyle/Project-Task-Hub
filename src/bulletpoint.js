@@ -60,8 +60,8 @@ async function viewBulletpoints(container, projectID, taskID) {
 
         bulletpointDeleteButton_el.addEventListener('click', (event) => {
             event.stopPropagation();
-            currentDeleteBulletpointID = element.id;
             deleteBulletpointOverlay_el.style.display = 'flex';
+            deleteBulletpoint(element.id, element.taskID, element.projectID);
         });
 
         listItemDiv_el.append(text_el);
