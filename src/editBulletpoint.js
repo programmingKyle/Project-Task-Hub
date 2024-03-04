@@ -12,6 +12,7 @@ function editBulletpoint(bulletpointID, taskID, projectID) {
     currentEditTaskID = taskID;
     currentEditProjectID = projectID;
     editBulletpointOverlay_el.style.display = 'flex';
+    editBulletpointInput_el.focus();
 }
 
 editBulletpointCloseButton_el.addEventListener('click', () => {

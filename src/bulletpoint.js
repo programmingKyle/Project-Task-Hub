@@ -49,7 +49,6 @@ async function viewBulletpoints(container, taskID, projectID) {
 
         editBulletpointButton_el.addEventListener('click', (event) => {
             event.stopPropagation();
-            editBulletpointInput_el.focus();
             currentEditBulletpointID = element.id;
             editBulletpointInput_el.value = element.bulletpoint;
             editBulletpoint(element.id, element.taskID, element.projectID);
