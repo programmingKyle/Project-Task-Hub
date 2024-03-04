@@ -154,6 +154,11 @@ async function populateTasks(tasks, status){
         }
     
         toDoItemContainer_el.addEventListener('click', async () => {
+            if (previousTaskContainer === toDoItemContainer_el){
+                previousTaskContainer = null;
+                closePreviousContainer(toDoItemContainer_el);
+                return;
+            }
             closePreviousContainer(previousTaskContainer);
             previousTaskContainer = toDoItemContainer_el;
             if (!toDoItemContainer_el.isDivClicked) {
