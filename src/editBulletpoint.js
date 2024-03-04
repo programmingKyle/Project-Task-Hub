@@ -29,3 +29,19 @@ editBulletPointButton_el.addEventListener('click', async () => {
         await viewBulletpoints(currentBulletpointList, currentEditTaskID, currentEditProjectID);    
     }
 });
+
+document.addEventListener('keypress', async (event) => {
+    if (event.key === 'Enter'){
+        if (editBulletpointOverlay_el.style.display !== 'none'){
+            if (editBulletpointInput_el.value === ''){
+                editBulletpointInput_el.classList.add('input-error');
+            } else {
+                removeErrorInput(editBulletpointInput_el);
+                await api.bulletpointHandler({request: 'Edit', bulletpointID: currentEditBulletpointID, editBulletpoint: editBulletpointInput_el.value});
+                editBulletpointInput_el.value = '';
+                editBulletpointOverlay_el.style.display = 'none';
+                await viewBulletpoints(currentBulletpointList, currentEditTaskID, currentEditProjectID);    
+            }
+        }
+    }
+});
