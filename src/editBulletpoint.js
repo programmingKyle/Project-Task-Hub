@@ -20,8 +20,12 @@ editBulletpointCloseButton_el.addEventListener('click', () => {
 });
 
 editBulletPointButton_el.addEventListener('click', async () => {
-    await api.bulletpointHandler({request: 'Edit', bulletpointID: currentEditBulletpointID, editBulletpoint: editBulletpointInput_el.value});
-    editBulletpointInput_el.value = '';
-    editBulletpointOverlay_el.style.display = 'none';
-    await viewBulletpoints(currentBulletpointList, currentEditTaskID, currentEditProjectID);
+    if (editBulletpointInput_el.value === ''){
+        editBulletpointInput_el.classList.add('input-error');
+    } else {
+        await api.bulletpointHandler({request: 'Edit', bulletpointID: currentEditBulletpointID, editBulletpoint: editBulletpointInput_el.value});
+        editBulletpointInput_el.value = '';
+        editBulletpointOverlay_el.style.display = 'none';
+        await viewBulletpoints(currentBulletpointList, currentEditTaskID, currentEditProjectID);    
+    }
 });
