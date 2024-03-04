@@ -649,8 +649,8 @@ ipcMain.handle('bulletpoint-handler', async(req, data) => {
       await editBulletpoint(data.bulletpointID, data.editBulletpoint);
       return;
     case 'Status':
-      await toggleBulletpointStatus(data.bulletpointID, data.status);
-      return;
+      const updatedStatus = await toggleBulletpointStatus(data.bulletpointID, data.status);
+      return updatedStatus;
   }
 });
 
@@ -662,7 +662,7 @@ async function toggleBulletpointStatus(id, status) {
       if (err){
         reject(err);
       } else {
-        resolve();
+        resolve(newStatus);
       }
     })
   });

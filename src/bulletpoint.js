@@ -40,8 +40,12 @@ async function viewBulletpoints(container, taskID, projectID) {
         listItemDiv_el.classList.add('bulletpoint-list-item-div');
 
         const text_el = document.createElement('li');
-        text_el.textContent = element.bulletpoint;
+        text_el.textContent = `\u2022   ${element.bulletpoint}`;
         text_el.className = 'bulletpoint';
+        if (element.status === 'complete'){
+            text_el.classList.add('complete');
+            text_el.textContent = `\u2713   ${element.bulletpoint}`;
+        }
 
         const editBulletpointButton_el = document.createElement('button');
         editBulletpointButton_el.classList.add('slim-button', 'fas', 'fa-edit');
@@ -83,9 +87,15 @@ async function viewBulletpoints(container, taskID, projectID) {
 
         listItemDiv_el.addEventListener('click', async (event) => {
             event.stopPropagation();
-            console.log(element.id);
-            await api.bulletpointHandler({request: 'Status', bulletpointID: element.id, status: element.status});
-        })
+            const updatedStatus = await api.bulletpointHandler({request: 'Status', bulletpointID: element.id, status: element.status});
+            console.log(updatedStatus);
+            element.status = updatedStatus;
+            if (updatedStatus === 'complete'){
+                text_el.classList.add('complete');
+            } else {
+                text_el.classList.remove('complete');
+            }
+        });
     });
 }
 document.addEventListener('keypress', async (event) => {
