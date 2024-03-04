@@ -648,8 +648,26 @@ ipcMain.handle('bulletpoint-handler', async(req, data) => {
     case 'Edit':
       await editBulletpoint(data.bulletpointID, data.editBulletpoint);
       return;
+    case 'Status':
+      await toggleBulletpointStatus(data.bulletpointID, data.status);
+      return;
   }
 });
+
+async function toggleBulletpointStatus(id, status) {
+  const newStatus = 'active' ? 'complete' : 'active';
+  console.log(newStatus);
+  const sqlStatement = 'UPDATE bulletpoints SET status = ?, dateModified = datetime("now", "localtime") WHERE id = ?';
+  return new Promise((resolve, reject) => {
+    db.run(sqlStatement, [newStatus, id], (err) => {
+      if (err){
+        reject(err);
+      } else {
+        resolve();
+      }
+    })
+  });
+}
 
 async function editBulletpoint(id, bulletpoint){
   if (!id || !bulletpoint) return;

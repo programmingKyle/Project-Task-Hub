@@ -80,6 +80,12 @@ async function viewBulletpoints(container, taskID, projectID) {
             editBulletpointButton_el.style.display = 'none';
             listItemDiv_el.classList.remove('hovered');
         });
+
+        listItemDiv_el.addEventListener('click', async (event) => {
+            event.stopPropagation();
+            console.log(element.id);
+            await api.bulletpointHandler({request: 'Status', bulletpointID: element.id, status: element.status});
+        })
     });
 }
 document.addEventListener('keypress', async (event) => {
