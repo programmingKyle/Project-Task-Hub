@@ -30,19 +30,36 @@ function removeErrorInput(element){
     }
 }
 
+document.addEventListener('keypress', async (event) => {
+    if (event.key === 'Enter'){
+        if (!addProjectOverlay_el.style.display !== 'none'){
+            if (projectNameInput_el.value === ''){
+                projectNameInput_el.classList.add('input-error');
+                event.preventDefault();
+            } else {
+                await addProject();
+            }        
+        }
+    }
+})
+
 saveProjectButton_el.addEventListener('click', async (event) => {
     if (projectNameInput_el.value === ''){
         projectNameInput_el.classList.add('input-error');
         event.preventDefault();
     } else {
-        removeErrorInput(projectNameInput_el);
-        await api.projectHandler({request: 'Add', projectName: projectNameInput_el.value});
-        addProjectOverlay_el.style.display = 'none';
-        projectNameInput_el.value = '';
-        populateProjectList('active');    
-        updateCounts();
+        await addProject();
     }
 });
+
+async function addProject(){
+    removeErrorInput(projectNameInput_el);
+    await api.projectHandler({request: 'Add', projectName: projectNameInput_el.value});
+    addProjectOverlay_el.style.display = 'none';
+    projectNameInput_el.value = '';
+    populateProjectList('active');    
+    updateCounts();
+}
 
 async function populateProjectList(statusRequest){
     if (statusRequest === 'complete'){
