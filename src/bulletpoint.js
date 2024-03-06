@@ -94,9 +94,13 @@ async function viewBulletpoints(container, taskID, projectID) {
             if (updatedStatus === 'complete'){
                 text_el.classList.add('complete');
                 text_el.textContent = `\u2713   ${element.bulletpoint}`;
+                populateActiveBulletpoints();
+                populateCompleteBulletpoints();            
             } else {
                 text_el.classList.remove('complete');
                 text_el.textContent = `\u25CF   ${element.bulletpoint}`;
+                populateActiveBulletpoints();
+                populateCompleteBulletpoints();            
             }
         });
     });
