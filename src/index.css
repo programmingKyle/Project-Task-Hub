@@ -219,7 +219,7 @@ h1,h2,h3,h4,h5,h6 {
 
 .quick-stats-top-bar-grid {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(8, 1fr);
   grid-gap: 10px;
 }
 
