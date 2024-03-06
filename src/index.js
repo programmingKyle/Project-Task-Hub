@@ -60,6 +60,7 @@ const createWindow = () => {
   mainWindow = new BrowserWindow({
     width: windowWidth,
     height: windowHeight,
+    frame: false,
     resizable: false,   // Graphs break resizing...need to fix graphs
     maximizable: false,
     webPreferences: {
@@ -105,6 +106,31 @@ app.on('activate', () => {
     createWindow();
   }
 });
+
+let isMaximized;
+ipcMain.handle('frame-handler', (req, data) => {
+  if (!data || !data.request) return;
+  switch(data.request){
+    case 'Minimize':
+      mainWindow.minimize();
+      break;
+    case 'Maximize':
+      toggleMaximize();
+      break;
+    case 'Exit':
+      mainWindow.close();
+      break;
+    }
+});
+
+function toggleMaximize(){
+  if (isMaximized){
+    mainWindow.restore();
+  } else {
+    mainWindow.maximize();
+  }
+  isMaximized = !isMaximized;
+}
 
 ipcMain.handle('get-projects', async (req, data) => {
   if (!data || !data.request) return;
