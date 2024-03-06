@@ -529,9 +529,29 @@ ipcMain.handle('hub-quick-info-handler', async (req, data) => {
     case 'TotalProjects':
       result = await hubTotalProjectsCount();
       break;
+    case 'ActiveBulletpoints':
+      result = await hubBulletpoints('active');
+      break;
+    case 'CompleteBulletpoints':
+      result = await hubBulletpoints('complete');
+      break;
     }
   return result;
 });
+
+async function hubBulletpoints(status){
+  console.log(status);
+  const sqlStatement = 'SELECT COUNT(*) AS count FROM bulletpoints WHERE status = ?';
+  return new Promise((resolve, reject) => {
+    db.get(sqlStatement, [status], (err, row) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(row.count);
+      }
+    });
+  });
+}
 
 async function hubTaskCount(projectStatus) {
   return new Promise((resolve, reject) => {

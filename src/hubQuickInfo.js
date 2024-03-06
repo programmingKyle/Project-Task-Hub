@@ -5,6 +5,9 @@ const newCompleteTaskCount_el = document.getElementById('newCompleteTaskCount');
 const newProjectCount_el = document.getElementById('newProjectCount');
 const totalProjectsCount_el = document.getElementById('totalProjectsCount');
 
+const activeBulletpointsCount_el = document.getElementById('activeBulletpointsCount');
+const completeBulletpointsCount_el = document.getElementById('completeBulletpointsCount');
+
 document.addEventListener('DOMContentLoaded', () => {
     updateCounts();
 });
@@ -16,6 +19,8 @@ function updateCounts(){
     populateTotalNewCompleteTasks();
     populateNewProjectCount();
     populateTotalProjects();
+    populateActiveBulletpoints();
+    populateCompleteBulletpoints();
 }
 
 async function populateTotalActiveTasks(){
@@ -46,4 +51,14 @@ async function populateNewProjectCount(){
 async function populateTotalProjects(){
     const totalProjectCount = await api.hubQuickInfoHandler({request: 'TotalProjects'});
     totalProjectsCount_el.textContent = totalProjectCount;
+}
+
+async function populateActiveBulletpoints(){
+    const activeBulletpointsCount = await api.hubQuickInfoHandler({request: 'ActiveBulletpoints'});
+    activeBulletpointsCount_el.textContent = activeBulletpointsCount;
+}
+
+async function populateCompleteBulletpoints(){
+    const completeBulletpointsCount = await api.hubQuickInfoHandler({request: 'CompleteBulletpoints'});
+    completeBulletpointsCount_el.textContent = completeBulletpointsCount;
 }
