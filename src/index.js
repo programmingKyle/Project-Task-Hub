@@ -449,13 +449,31 @@ ipcMain.handle('task-quick-info-handler', async (req, data) => {
       result = await projectTaskCountWithinRange(data.projectID, 'Complete', 7);
       break;
     case 'ProjectCreatedDate':
-      result = await grabProjectCreatedDate(data. projectID);
-      // Implement the logic for this case if needed
+      result = await grabProjectCreatedDate(data.projectID);
+      break;
+    case 'ActiveBulletpoints':
+      result = await grabProjectBulletpoints('active', data.projectID);
+      break;
+    case 'CompleteBulletpoints':
+      result = await grabProjectBulletpoints('complete', data.projectID);
       break;
   }
   // Send the result back through IPC or perform other actions based on the result
   return result;
 });
+
+async function grabProjectBulletpoints(status, projectID){
+  const sqlStatement = 'SELECT COUNT(*) AS count FROM bulletpoints WHERE status = ? AND projectID = ?';
+  return new Promise((resolve, reject) => {
+    db.get(sqlStatement, [status, projectID], (err, row) => {
+      if (err){
+        reject(err);
+      } else {
+        resolve(row.count);
+      }
+    })
+  });
+}
 
 async function grabProjectCreatedDate(projectID) {
   return new Promise((resolve, reject) => {
@@ -540,7 +558,6 @@ ipcMain.handle('hub-quick-info-handler', async (req, data) => {
 });
 
 async function hubBulletpoints(status){
-  console.log(status);
   const sqlStatement = 'SELECT COUNT(*) AS count FROM bulletpoints WHERE status = ?';
   return new Promise((resolve, reject) => {
     db.get(sqlStatement, [status], (err, row) => {

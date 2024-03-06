@@ -24,6 +24,8 @@ addBulletPointButton_el.addEventListener('click', async () => {
     addBulletpointOverlay_el.style.display = 'none';
     bulletpointInput_el.value = '';
     await viewBulletpoints(currentBulletpointList, taskID, projectID);
+    populateActiveBulletpoints();
+    populateCompleteBulletpoints();
 });
 
 async function viewBulletpoints(container, taskID, projectID) {
@@ -110,7 +112,9 @@ document.addEventListener('keypress', async (event) => {
                 return;
             }
             await api.bulletpointHandler({request: 'Add', taskID: taskID, projectID: projectID, bulletpoint: bulletpointInput_el.value});
-            await viewBulletpoints(currentBulletpointList, taskID, projectID);    
+            await viewBulletpoints(currentBulletpointList, taskID, projectID);
+            populateActiveBulletpoints();
+            populateCompleteBulletpoints();        
             bulletpointInput_el.value = '';
         }    
     }

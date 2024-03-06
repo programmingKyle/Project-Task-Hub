@@ -5,6 +5,8 @@ const newCompleteCount_el = document.getElementById('newCompleteCount');
 const projectDateCreatedText_el = document.getElementById('projectDateCreatedText');
 const projectStatusText_el = document.getElementById('projectStatusText');
 
+const activeProjectBulletpointsText_el = document.getElementById('activeProjectBulletpointsText');
+const completeProjectBulletpointsText_el = document.getElementById('completeProjectBulletpointsText');
 
 document.addEventListener('DOMContentLoaded', () => {
     populateStatus();
@@ -17,6 +19,8 @@ function updateTaskCounts(){
     populateCompleteTasks();    
     populateNewTasksCount();
     populateNewCompleteCount();
+    populateActiveBulletpoints();
+    populateCompleteBulletpoints();
 }
 
 function populateStatus(){
@@ -54,5 +58,14 @@ async function populateProjectDateCreated(){
     projectDateCreatedText_el.textContent = dateCreated;
 }
 
+async function populateActiveBulletpoints(){
+    const activeBulletpoints = await api.taskQuickInfoHandler({request: 'ActiveBulletpoints', projectID: projectID});
+    activeProjectBulletpointsText_el.textContent = activeBulletpoints;
+}
+
+async function populateCompleteBulletpoints(){
+    const completeBulletpoints = await api.taskQuickInfoHandler({request: 'CompleteBulletpoints', projectID: projectID});
+    completeProjectBulletpointsText_el.textContent = completeBulletpoints;
+}
 
 
