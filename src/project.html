@@ -140,6 +140,14 @@
             <h5>Complete (7 Days)</h5>
           </div>
           <div class="inner-container header-and-container">
+            <h3 id="activeProjectBulletpointsText"></h3>
+            <h5>Active Bullets</h5>
+          </div>  
+          <div class="inner-container header-and-container">
+            <h3 id="completeProjectBulletpointsText"></h3>
+            <h5>Complete Bullets</h5>
+          </div>
+          <div class="inner-container header-and-container">
             <h3 id="projectDateCreatedText"></h3>
             <h5>Project Created</h5>
           </div>  
@@ -147,14 +155,6 @@
             <h3 id="projectStatusText"></h3>
             <h5>Status</h5>
           </div>
-          <div class="inner-container header-and-container">
-            <h3 id="activeProjectBulletpointsText"></h3>
-            <h5>Active Bullets</h5>
-          </div>  
-          <div class="inner-container header-and-container">
-            <h3 id="completeProjectBulletpointsText"></h3>
-            <h5>Complete Bullets</h5>
-          </div>  
         </div>
         <div id="editProjectDiv" style="display: none; grid-template-columns: repeat(3, 1fr); grid-gap: 10px;">
           <button id="editProjectNameButton" class="input-button">Edit Project Name</button>
@@ -163,7 +163,7 @@
         </div>
       </div>
       <div class="project-content-grid">
-        <div style="overflow-y: hidden; display: grid; grid-gap: 5px;">
+        <div class="project-content-categories">
             <div class="container" style="display: grid; grid-template-rows: auto 1fr; overflow: hidden;">
                 <div style="display: grid; grid-template-columns: 1fr auto; padding-bottom: 10px;">
                     <h2>Active Tasks</h2>
@@ -175,7 +175,7 @@
                 </div>  
             </div>
         </div>
-        <div style="overflow: hidden; display: grid; grid-gap: 5px;">
+        <div class="project-content-categories">
             <div class="container" style="display: grid; grid-template-rows: auto 1fr; overflow: hidden;">
                 <div style="display: grid; grid-template-columns: 1fr auto; padding-bottom: 10px;;">
                     <h2>In Progress Tasks</h2>
@@ -187,9 +187,9 @@
               </div>  
             </div>
         </div>
-        <div style="overflow: hidden; display: grid; grid-gap: 5px;">
+        <div class="project-content-categories">
             <div class="container" style="display: grid; grid-template-rows: auto 1fr; overflow: hidden;">
-                <div style="display: grid; grid-template-columns: 1fr auto; padding-bottom: 10px;;">
+                <div style="display: grid; grid-template-columns: 1fr auto; padding-bottom: 10px;">
                     <h2>Complete Tasks</h2>
                     <button id="addCompleteTaskButton" class="slim-button fas fa-plus"></button>
                 </div>
