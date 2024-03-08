@@ -1,0 +1,8 @@
+appId: com.squirrel.programmingKyle.project-task-hub
+productName: Project Task Hub
+win:
+  target: nsis
+  artifactName: "Project-Task-Hub-Setup-${version}.${ext}"
+publish:
+  provider: github
+  repo: programmingKyle/Project-Task-Hub

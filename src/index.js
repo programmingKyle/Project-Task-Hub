@@ -3,7 +3,8 @@ const path = require('path');
 const { autoUpdater } = require('electron-updater');
 
 const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('database.db');
+const appDataPath = app.getPath('userData');
+const db = new sqlite3.Database(`${appDataPath}/database.db`);
 
 // palette: https://coolors.co/f1f1f1-1b1b1b-252525-313131-9593d9-7c90db-889ade-24d05b-de2b2b
 
