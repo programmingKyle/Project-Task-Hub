@@ -1,5 +1,6 @@
 const { app, BrowserWindow, screen, ipcMain } = require('electron');
 const path = require('path');
+const { autoUpdater } = require('electron-updater');
 
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('database.db');
@@ -61,7 +62,7 @@ const createWindow = () => {
     width: windowWidth,
     height: windowHeight,
     frame: false,
-    //resizable: false,   // Graphs break resizing...need to fix graphs
+    resizable: false,   // Graphs break resizing...need to fix graphs
     maximizable: false,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
@@ -72,7 +73,7 @@ const createWindow = () => {
   mainWindow.loadFile(path.join(__dirname, 'index.html'));
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  //mainWindow.webContents.openDevTools();
 
   mainWindow.on('move', () => {
     const { x, y, width, height } = mainWindow.getBounds();
@@ -83,7 +84,53 @@ const createWindow = () => {
       Math.round(newScreen.size.height * 0.8)
     );
   });
+
+  mainWindow.once('ready-to-show', () => {
+    if (app.isPackaged) {
+      autoUpdater.setFeedURL({
+        provider: 'github',
+        owner: 'programmingKyle',
+        repo: 'Project-Task-Hub',
+      });
+      autoUpdater.checkForUpdatesAndNotify();
+    }
+  });
 };
+
+autoUpdater.on('checking-for-update', () => {
+  mainWindow.webContents.send('auto-updater-callback', 'Checking for Update');
+});
+
+autoUpdater.on('update-available', () => {
+  mainWindow.webContents.send('auto-updater-callback', 'Update Available');
+});
+
+autoUpdater.on('update-not-available', () => {
+  mainWindow.webContents.send('auto-updater-callback', 'No Updates Available');
+});
+
+autoUpdater.on('update-downloaded', () => {
+  mainWindow.webContents.send('auto-updater-callback', 'Update Downloaded');
+  //ensureSafeQuitAndInstall();
+});
+
+ipcMain.handle('restart-and-update', () => {
+  ensureSafeQuitAndInstall();
+});
+
+function ensureSafeQuitAndInstall() {
+  setImmediate(() => {
+    app.removeAllListeners("window-all-closed")
+    if (mainWindow != null) {
+      mainWindow.close()
+    }
+    autoUpdater.quitAndInstall(false)
+  })
+}
+
+ipcMain.handle('close-app', () => {
+  app.quit();
+});
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.

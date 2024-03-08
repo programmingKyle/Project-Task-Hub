@@ -6,10 +6,9 @@
   "main": "src/index.js",
   "scripts": {
     "start": "electron-forge start",
-    "package": "electron-forge package",
-    "make": "electron-forge make",
-    "publish": "electron-forge publish",
-    "lint": "echo \"No linting configured\""
+    "package": "electron-builder",
+    "make": "electron-builder --win",
+    "publish": "electron-builder --publish always"
   },
   "keywords": [],
   "author": "thefo",
@@ -17,6 +16,7 @@
   "dependencies": {
     "chart.js": "^4.4.1",
     "electron-squirrel-startup": "^1.0.0",
+    "electron-updater": "^6.1.8",
     "sqlite3": "^5.1.6"
   },
   "devDependencies": {
@@ -26,6 +26,7 @@
     "@electron-forge/maker-squirrel": "^7.2.0",
     "@electron-forge/maker-zip": "^7.2.0",
     "@electron-forge/plugin-auto-unpack-natives": "^7.2.0",
-    "electron": "28.1.0"
+    "electron": "28.1.0",
+    "electron-builder": "^24.13.3"
   }
 }

@@ -17,4 +17,12 @@ contextBridge.exposeInMainWorld('api', {
     graphCounts: (data) => ipcRenderer.invoke('graph-counts', data),
 
     bulletpointHandler: (data) => ipcRenderer.invoke('bulletpoint-handler', data),
+
+    autoUpdaterCallback: (callback) => {
+        ipcRenderer.on('auto-updater-callback', (_, status) => {
+            callback(status);
+        });
+    },
+    restartAndUpdate: () => ipcRenderer.invoke('restart-and-update'),
+    closeApp: () => ipcRenderer.invoke('close-app'),
 });
