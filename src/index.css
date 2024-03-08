@@ -275,6 +275,12 @@ h1,h2,h3,h4,h5,h6 {
   height: 100px;
 }
 
+.to-do-text {
+  display: grid;
+  padding: 5px;
+  overflow: hidden;
+}
+
 canvas {
   max-width: 100%;
 }

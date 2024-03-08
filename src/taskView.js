@@ -118,11 +118,11 @@ async function populateTasks(tasks, status){
         toDoControlDiv_el.append(editTaskButton_el);
     
         const toDoText_el = document.createElement('p');
-        toDoText_el.style.padding = '10px';
-        toDoText_el.style.overflow = 'hidden'; // Why do I need you?     
+        toDoText_el.classList.add('to-do-text');
         toDoText_el.textContent = element.taskDescription;
         
         const completeDateText_el = document.createElement('h5');
+        completeDateText_el.style.display = 'none';
 
         const bulletpointsDiv_el = document.createElement('div');
         bulletpointsDiv_el.style.display = 'none';
@@ -137,8 +137,6 @@ async function populateTasks(tasks, status){
         toDoItemContainer_el.append(bulletpointsDiv_el);
         toDoItemContainer_el.append(toDoControlDiv_el);
 
-        //toDoItemContainer_el.append(editTaskButton_el);
-        console.log(status);
         if (status === 'active'){
             moveRightButton_el.style.visibility = 'visible';
             todoListOutput_el.appendChild(toDoItemContainer_el);
@@ -147,6 +145,7 @@ async function populateTasks(tasks, status){
             moveLeftButton_el.style.visibility = 'visible';
             inprogressListOutput_el.appendChild(toDoItemContainer_el);
         } else if (status === 'complete'){
+            completeDateText_el.style.display = 'block';
             completeDateText_el.textContent = element.dateCompleted;
             moveLeftButton_el.style.visibility = 'visible';
             toDoText_el.style.display = 'none';
@@ -156,10 +155,10 @@ async function populateTasks(tasks, status){
         toDoItemContainer_el.addEventListener('click', async () => {
             if (previousTaskContainer === toDoItemContainer_el){
                 previousTaskContainer = null;
-                closePreviousContainer(toDoItemContainer_el);
+                closePreviousContainer(toDoItemContainer_el, element.status);
                 return;
             }
-            closePreviousContainer(previousTaskContainer);
+            closePreviousContainer(previousTaskContainer, element.status);
             previousTaskContainer = toDoItemContainer_el;
             if (!toDoItemContainer_el.isDivClicked) {
               if (element.status === 'complete'){
@@ -225,12 +224,16 @@ async function populateTasks(tasks, status){
     });
 }
 
-function closePreviousContainer(container) {
+function closePreviousContainer(container, status) {
     if (container) {
+        const taskDescriptionElement = container.querySelector('.to-do-text');
         const previousBulletpointsDiv = container.querySelector('.bulletpoints-div');
         const previousBulletpointList = container.querySelector('.bulletpoint-list');
         const inputButtons = container.querySelectorAll('.input-button');
 
+        if (status === 'complete'){
+            taskDescriptionElement.style.display = 'none';
+        }
         container.isDivClicked = false;
         previousBulletpointsDiv.style.display = 'none';
         previousBulletpointList.innerHTML = '';
