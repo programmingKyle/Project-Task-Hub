@@ -357,6 +357,8 @@ canvas {
   margin: 0;
   padding: 0;
   border-radius: 5px;
+  overflow: hidden;
+  width: 100%;
 }
 
 .bulletpoint-list {
@@ -371,7 +373,11 @@ canvas {
   text-align: left;
   color: #F1F1F1;
   font-size: 14px;
+  overflow-wrap: break-word;
+  overflow: hidden;
 }
+
+
 
 .bulletpoint.complete {
   color: rgb(0, 179, 0);

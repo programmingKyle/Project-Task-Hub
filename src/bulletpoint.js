@@ -42,11 +42,11 @@ async function viewBulletpoints(container, taskID, projectID) {
         listItemDiv_el.classList.add('bulletpoint-list-item-div');
 
         const text_el = document.createElement('li');
-        text_el.textContent = `\u25CF   ${element.bulletpoint}`;
+        text_el.textContent = `\u25CF\u00A0${element.bulletpoint}`;
         text_el.className = 'bulletpoint';
         if (element.status === 'complete'){
             text_el.classList.add('complete');
-            text_el.textContent = `\u2713   ${element.bulletpoint}`;
+            text_el.textContent = `\u2713\u00A0${element.bulletpoint}`;
         }
 
         const editBulletpointButton_el = document.createElement('button');
@@ -93,12 +93,12 @@ async function viewBulletpoints(container, taskID, projectID) {
             element.status = updatedStatus;
             if (updatedStatus === 'complete'){
                 text_el.classList.add('complete');
-                text_el.textContent = `\u2713   ${element.bulletpoint}`;
+                text_el.textContent = `\u2713\u00A0${element.bulletpoint}`;
                 populateActiveBulletpoints();
                 populateCompleteBulletpoints();            
             } else {
                 text_el.classList.remove('complete');
-                text_el.textContent = `\u25CF   ${element.bulletpoint}`;
+                text_el.textContent = `\u25CF\u00A0${element.bulletpoint}`;
                 populateActiveBulletpoints();
                 populateCompleteBulletpoints();            
             }
