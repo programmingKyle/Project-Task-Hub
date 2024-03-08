@@ -380,8 +380,10 @@ canvas {
 .bulletpoint-list-item-div {
   display: grid;
   grid-template-columns: 1fr;
+  padding-right: 50px;
 }
 
 .bulletpoint-list-item-div.hovered {
   grid-template-columns: 1fr auto auto;
+  padding-right: 0px;
 }
