@@ -44,6 +44,7 @@ input {
 .inner-container {
   background-color: #252525;
   border-radius: 10px;
+  display: grid;
 }
 
 .active-complete-buttons {
@@ -210,6 +211,7 @@ h1,h2,h3,h4,h5,h6 {
   -webkit-app-region: no-drag;
   font-size: 12px;
   padding: 10px;
+  outline: none;
 }
 
 .top-bar-grid {

@@ -61,7 +61,7 @@ const createWindow = () => {
     width: windowWidth,
     height: windowHeight,
     frame: false,
-    resizable: false,   // Graphs break resizing...need to fix graphs
+    //resizable: false,   // Graphs break resizing...need to fix graphs
     maximizable: false,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
@@ -303,13 +303,13 @@ ipcMain.handle('add-task', (req, data) => {
 ipcMain.handle('get-tasks', (req, data) => {
   if (!data || !data.projectID || !data.status) return;
   switch (data.status){
-    case 'Active':
+    case 'active':
       const activeTasks = grabTasksWithStatus(data.projectID, data.status);
       return activeTasks;
-    case 'InProgress':
+    case 'inprogress':
       const inprogressTasks = grabTasksWithStatus(data.projectID, data.status);
       return inprogressTasks;
-    case 'Complete':
+    case 'complete':
       const completeTasks = grabTasksWithStatus(data.projectID, data.status);
       return completeTasks;
   }
@@ -437,16 +437,16 @@ ipcMain.handle('task-quick-info-handler', async (req, data) => {
   
   switch (data.request) {
     case 'ActiveTasks':
-      result = await projectTaskCount(data.projectID, 'Active & InProgress');
+      result = await projectTaskCount(data.projectID, 'active & inprogress');
       break;
     case 'CompleteTasks':
-      result = await projectTaskCount(data.projectID, 'Complete');
+      result = await projectTaskCount(data.projectID, 'complete');
       break;
     case 'NewTasks':
-      result = await projectTaskCountWithinRange(data.projectID, 'Active & InProgress', 7);
+      result = await projectTaskCountWithinRange(data.projectID, 'active & inprogress', 7);
       break;
     case 'NewCompleteTasks':
-      result = await projectTaskCountWithinRange(data.projectID, 'Complete', 7);
+      result = await projectTaskCountWithinRange(data.projectID, 'complete', 7);
       break;
     case 'ProjectCreatedDate':
       result = await grabProjectCreatedDate(data.projectID);
@@ -530,16 +530,16 @@ ipcMain.handle('hub-quick-info-handler', async (req, data) => {
   
   switch (data.request) {
     case 'ActiveTasks':
-      result = await hubTaskCount('Active & InProgress');
+      result = await hubTaskCount('active & inprogress');
       break;
     case 'CompleteTasks':
-      result = await hubTaskCount('Complete');
+      result = await hubTaskCount('complete');
       break;
     case 'NewTasks':
-      result = await hubTaskCountWithinRange('Active & InProgress', 7);
+      result = await hubTaskCountWithinRange('active & inprogress', 7);
       break;
     case 'NewCompleteTasks':
-      result = await hubTaskCountWithinRange('Complete', 7);
+      result = await hubTaskCountWithinRange('complete', 7);
       break;
     case 'NewProjects':
       result = await hubNewProjectsWithinRange(7);
@@ -657,7 +657,7 @@ async function graphDailyTaskCountComplete(days) {
   for (const day of days) {
     const count = await new Promise((resolve, reject) => {
       db.get(
-        'SELECT COUNT(*) AS taskCount FROM tasks WHERE strftime("%Y-%m-%d", dateCompleted) = ? AND status = "Complete"',
+        'SELECT COUNT(*) AS taskCount FROM tasks WHERE strftime("%Y-%m-%d", dateCompleted) = ? AND status = "complete"',
         [day],
         (err, row) => {
           if (err) {
@@ -679,7 +679,7 @@ async function graphMonthlyTaskCountComplete(months) {
   for (const month of months) {
     const count = await new Promise((resolve, reject) => {
       db.get(
-        'SELECT COUNT(*) AS taskCount FROM tasks WHERE strftime("%Y-%m", dateCompleted) = ? AND status = "Complete"',
+        'SELECT COUNT(*) AS taskCount FROM tasks WHERE strftime("%Y-%m", dateCompleted) = ? AND status = "complete"',
         [month],
         (err, row) => {
           if (err) {

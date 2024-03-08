@@ -41,30 +41,30 @@ async function initalPopulation(){
 }
 
 async function populateAllTasks(){
-    const activeTasks = await api.getTasks({projectID: projectID, status: 'Active'});
-    populateTasks(activeTasks, 'Active');
-    const inprogressTasks = await api.getTasks({projectID: projectID, status: 'InProgress'});
-    populateTasks(inprogressTasks, 'InProgress');
-    const completeTasks = await api.getTasks({projectID: projectID, status: 'Complete'});
-    populateTasks(completeTasks, 'Complete');
+    const activeTasks = await api.getTasks({projectID: projectID, status: 'active'});
+    populateTasks(activeTasks, 'active');
+    const inprogressTasks = await api.getTasks({projectID: projectID, status: 'inprogress'});
+    populateTasks(inprogressTasks, 'inprogress');
+    const completeTasks = await api.getTasks({projectID: projectID, status: 'complete'});
+    populateTasks(completeTasks, 'complete');
 }
 
 async function populateTaskCategory(category){
     switch (category){
-        case 'Active':
+        case 'active':
             todoListOutput_el.innerHTML = '';
-            const activeTasks = await api.getTasks({projectID: projectID, status: 'Active'});
-            populateTasks(activeTasks, 'Active');        
+            const activeTasks = await api.getTasks({projectID: projectID, status: 'active'});
+            populateTasks(activeTasks, 'active');        
             break;
-        case 'InProgress':
+        case 'inprogress':
             inprogressListOutput_el.innerHTML = '';
-            const inprogressTasks = await api.getTasks({projectID: projectID, status: 'InProgress'});
-            populateTasks(inprogressTasks, 'InProgress');        
+            const inprogressTasks = await api.getTasks({projectID: projectID, status: 'inprogress'});
+            populateTasks(inprogressTasks, 'inprogress');        
             break;
-        case 'Complete':
+        case 'complete':
             completeListOutput_el.innerHTML = '';
-            const completeTasks = await api.getTasks({projectID: projectID, status: 'Complete'});
-            populateTasks(completeTasks, 'Complete');        
+            const completeTasks = await api.getTasks({projectID: projectID, status: 'complete'});
+            populateTasks(completeTasks, 'complete');        
             break;
     }
 }
@@ -138,15 +138,15 @@ async function populateTasks(tasks, status){
         toDoItemContainer_el.append(toDoControlDiv_el);
 
         //toDoItemContainer_el.append(editTaskButton_el);
-    
-        if (status === 'Active'){
+        console.log(status);
+        if (status === 'active'){
             moveRightButton_el.style.visibility = 'visible';
             todoListOutput_el.appendChild(toDoItemContainer_el);
-        } else if (status === 'InProgress'){
+        } else if (status === 'inprogress'){
             moveRightButton_el.style.visibility = 'visible';
             moveLeftButton_el.style.visibility = 'visible';
             inprogressListOutput_el.appendChild(toDoItemContainer_el);
-        } else if (status === 'Complete'){
+        } else if (status === 'complete'){
             completeDateText_el.textContent = element.dateCompleted;
             moveLeftButton_el.style.visibility = 'visible';
             toDoText_el.style.display = 'none';
@@ -162,7 +162,7 @@ async function populateTasks(tasks, status){
             closePreviousContainer(previousTaskContainer);
             previousTaskContainer = toDoItemContainer_el;
             if (!toDoItemContainer_el.isDivClicked) {
-              if (element.status === 'Complete'){
+              if (element.status === 'complete'){
                 toDoText_el.style.display = 'grid';
               }
               toDoItemContainer_el.style.maxHeight = 'none';
@@ -173,7 +173,7 @@ async function populateTasks(tasks, status){
               await viewBulletpoints(bulletpointList_el, element.id, projectID)
               toDoItemContainer_el.isDivClicked = true;
             } else {
-              if (element.status === 'Complete'){
+              if (element.status === 'complete'){
                 toDoText_el.style.display = 'none';
               }
               bulletpointsDiv_el.style.display = 'none';
@@ -189,30 +189,30 @@ async function populateTasks(tasks, status){
         moveRightButton_el.addEventListener('click', async (event) => {
             event.stopPropagation();
             api.updateProjectDateModified({projectID: projectID});
-            if (status === 'Active'){
-                await api.changeTaskCategory({taskID: element.id, newCategory: 'InProgress'});
+            if (status === 'active'){
+                await api.changeTaskCategory({taskID: element.id, newCategory: 'inprogress'});
                 await populateTaskCategory(status);
-                await populateTaskCategory('InProgress');
-            } else if (status === 'InProgress'){
-                await api.changeTaskCategory({taskID: element.id, newCategory: 'Complete'});
+                await populateTaskCategory('inprogress');
+            } else if (status === 'inprogress'){
+                await api.changeTaskCategory({taskID: element.id, newCategory: 'complete'});
                 updateTaskCounts();
                 await populateTaskCategory(status);
-                await populateTaskCategory('Complete');
+                await populateTaskCategory('complete');
             }
         });
 
         moveLeftButton_el.addEventListener('click', async (event) => {
             event.stopPropagation();
             api.updateProjectDateModified({projectID: projectID});
-            if (status === 'InProgress'){
-                await api.changeTaskCategory({taskID: element.id, newCategory: 'Active'});
+            if (status === 'inprogress'){
+                await api.changeTaskCategory({taskID: element.id, newCategory: 'active'});
                 await populateTaskCategory(status);
-                await populateTaskCategory('Active');
-            } else if (status === 'Complete'){
-                await api.changeTaskCategory({taskID: element.id, newCategory: 'InProgress'});
+                await populateTaskCategory('active');
+            } else if (status === 'complete'){
+                await api.changeTaskCategory({taskID: element.id, newCategory: 'inprogress'});
                 updateTaskCounts();
                 await populateTaskCategory(status);
-                await populateTaskCategory('InProgress');
+                await populateTaskCategory('inprogress');
             }
         });
 
@@ -250,21 +250,21 @@ addActiveTaskButton_el.addEventListener('click', () => {
     addTaskOverlay_el.style.display = 'flex';
     taskTitleInput_el.focus();
     addTaskTitle_el.textContent = 'Add Active Task';
-    currentAddStatus = 'Active';
+    currentAddStatus = 'active';
 });
 
 addInProgressTaskButton_el.addEventListener('click', () => {
     addTaskOverlay_el.style.display = 'flex';
     taskTitleInput_el.focus();
     addTaskTitle_el.textContent = 'Add In Progress Task';
-    currentAddStatus = 'InProgress';
+    currentAddStatus = 'inprogress';
 });
 
 addCompleteTaskButton_el.addEventListener('click', () => {
     addTaskOverlay_el.style.display = 'flex';
     taskTitleInput_el.focus();
     addTaskTitle_el.textContent = 'Add Complete Task';
-    currentAddStatus = 'Complete';
+    currentAddStatus = 'complete';
 });
 
 addTaskCloseButton_el.addEventListener('click', () => {
