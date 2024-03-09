@@ -45,6 +45,11 @@ input {
   background-color: #252525;
   border-radius: 10px;
   display: grid;
+  box-shadow: inset 0px 0px 5px #0e0e0e;
+}
+
+.inner-container h5 {
+  color: #7c90db;
 }
 
 .active-complete-buttons {
@@ -110,27 +115,31 @@ p {
 
 .input-button {
   border-radius: 10px;
-  background-color: #7C90DB;
+  background: rgb(124,144,219);
+  background: linear-gradient(180deg, rgba(124,144,219,1) 0%, rgba(145,161,219,1) 33%, rgba(124,144,219,1) 100%);
   padding: 10px;
   border-style: none;
   color: black;
+  transition: filter 0.3s ease;
 }
 
 .input-button:hover{
-  background-color: #889ADE;
+  filter: brightness(1.2);
 }
 
 .project-button {
   border-radius: 10px;
-  background-color: #7C90DB;
+  background: rgb(124,144,219);
+  background: linear-gradient(180deg, rgba(124,144,219,1) 0%, rgba(145,161,219,1) 33%, rgba(124,144,219,1) 100%);
   border-style: none;
   color: black;
   height: 40px;
   width: 100%;
+  transition: filter 0.3s ease;
 }
 
 .project-button:hover{
-  background-color: #889ADE;
+  filter: brightness(1.2);
 }
 
 
@@ -262,8 +271,6 @@ h1,h2,h3,h4,h5,h6 {
   margin-bottom: 10px;
 }
 
-
-
 .to-do-item-grid {
   height: auto;
   border-radius: 10px;
@@ -307,6 +314,7 @@ canvas {
   cursor: pointer;
   position: relative;
   grid-gap: 10px;
+  box-shadow: inset 0px 0px 5px #000;
 }
 
 .to-do-list-container-item:after {
