@@ -271,6 +271,10 @@ h1,h2,h3,h4,h5,h6 {
   margin-bottom: 10px;
 }
 
+.task-status-header {
+  color: #7c90db;
+}
+
 .to-do-item-grid {
   height: auto;
   border-radius: 10px;
