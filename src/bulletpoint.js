@@ -105,8 +105,9 @@ async function viewBulletpoints(container, taskID, projectID) {
         });
     });
 }
+
 document.addEventListener('keypress', async (event) => {
-    if (event.key === 'Enter'){
+    if (event.key === 'Enter' && document.activeElement === bulletpointInput_el){
         if (bulletpointInput_el.classList.contains('input-error')){
             bulletpointInput_el.classList.remove('input-error');
         }
@@ -120,7 +121,7 @@ document.addEventListener('keypress', async (event) => {
             populateActiveBulletpoints();
             populateCompleteBulletpoints();        
             bulletpointInput_el.value = '';
-        }    
+        }
     }
 });
 
