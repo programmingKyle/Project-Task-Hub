@@ -18,12 +18,14 @@ addProjectButton_el.addEventListener('click', () => {
 document.addEventListener('keydown', async (event) => {
     if (event.key === 'Escape' && addProjectOverlay_el.style.display === 'flex'){
         addProjectOverlay_el.style.display = 'none';
+        projectNameInput_el.value = '';
     }
 });
 
 addProjectCloseButton_el.addEventListener('click', () => {
     removeErrorInput(projectNameInput_el);
     addProjectOverlay_el.style.display = 'none';
+    projectNameInput_el.value = '';
 });
 
 projectNameInput_el.addEventListener('focus', () => {
