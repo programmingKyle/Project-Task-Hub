@@ -313,3 +313,8 @@ saveTaskButton_el.addEventListener('click', async () => {
     addTaskOverlay_el.style.display = 'none';
 });
 
+document.addEventListener('keydown', async (event) => {
+    if (event.key === 'Escape' && addTaskOverlay_el.style.display === 'flex'){
+        addTaskOverlay_el.style.display = 'none';
+    }
+})
