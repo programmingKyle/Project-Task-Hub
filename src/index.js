@@ -332,8 +332,7 @@ ipcMain.handle('add-task', (req, data) => {
     let sqlStatementIncomplete = 'INSERT INTO tasks (projectID, status, taskTitle, taskDescription, dateCreated, dateModified, dateCompleted) VALUES (?, ?, ?, ?, ' + currentDate + ', ' + currentDate + ', NULL)';
 
     // Choose the appropriate SQL statement based on data.status
-    let sqlStatement = (data.status === 'Complete') ? sqlStatementComplete : sqlStatementIncomplete;
-
+    let sqlStatement = (data.status === 'complete') ? sqlStatementComplete : sqlStatementIncomplete;
     // Your database query to get active project names and IDs sorted by dateModified
     db.run(sqlStatement,
       [data.projectID, data.status, data.taskTitle, data.taskDescription], 
