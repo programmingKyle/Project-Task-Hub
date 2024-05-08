@@ -23,6 +23,7 @@ let projectStatus;
 let currentAddStatus; // This is used when adding a task. Clicking on a button will change it
 let currentOpenEditTaskID;
 let currentOpenEditTaskStatus;
+let hasOpenedCompleteTask; // I hate this messy code
 
 let previousTaskContainer; // This will be used to close task items when clicking another
 
@@ -162,6 +163,7 @@ async function populateTasks(tasks, status){
             previousTaskContainer = toDoItemContainer_el;
             if (!toDoItemContainer_el.isDivClicked) {
               if (element.status === 'complete'){
+                hasOpenedCompleteTask = true;
                 toDoText_el.style.display = 'grid';
               }
               toDoItemContainer_el.style.maxHeight = 'none';
@@ -231,7 +233,10 @@ function closePreviousContainer(container, status) {
         const previousBulletpointList = container.querySelector('.bulletpoint-list');
         const inputButtons = container.querySelectorAll('.input-button');
 
-        if (status === 'complete'){
+        if (status !== 'complete' && hasOpenedCompleteTask){
+            hasOpenedCompleteTask = false;
+            taskDescriptionElement.style.display = 'none';
+        } else if (status === 'complete' && hasOpenedCompleteTask){
             taskDescriptionElement.style.display = 'none';
         }
         container.isDivClicked = false;
