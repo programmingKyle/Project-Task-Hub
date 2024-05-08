@@ -120,6 +120,7 @@ async function populateTasks(tasks, status){
     
         const toDoText_el = document.createElement('p');
         toDoText_el.classList.add('to-do-text');
+        toDoText_el.style.whiteSpace = 'pre-line';
         toDoText_el.textContent = element.taskDescription;
         
         const completeDateText_el = document.createElement('h5');
