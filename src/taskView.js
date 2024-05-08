@@ -277,6 +277,8 @@ addCompleteTaskButton_el.addEventListener('click', () => {
 
 addTaskCloseButton_el.addEventListener('click', () => {
     addTaskOverlay_el.style.display = 'none';
+    taskTitleInput_el.value = '';
+    taskDescriptionTextarea_el.value = '';
 });
 
 taskTitleInput_el.addEventListener('focus', () => {
@@ -316,5 +318,7 @@ saveTaskButton_el.addEventListener('click', async () => {
 document.addEventListener('keydown', async (event) => {
     if (event.key === 'Escape' && addTaskOverlay_el.style.display === 'flex'){
         addTaskOverlay_el.style.display = 'none';
+        taskTitleInput_el.value = '';
+        taskDescriptionTextarea_el.value = '';
     }
 })
