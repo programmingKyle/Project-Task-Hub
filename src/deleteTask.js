@@ -22,6 +22,7 @@ deleteTaskButton_el.addEventListener('click', async () => {
 
 confirmDeleteTaskButton_el.addEventListener('click', async () => {
     await api.deleteTask({taskID: currentOpenEditTaskID});
+    await api.updateProjectDateModified({projectID: projectID});
     toggleDeleteTask();
     await populateTaskCategory(currentOpenEditTaskStatus)
     updateTaskCounts();
