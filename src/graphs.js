@@ -218,7 +218,6 @@ let resizeTimer;
 
 window.addEventListener('resize', () => {
     clearTimeout(resizeTimer);
-    console.log(annualBarGraph);
     if (annualBarGraph){
         annualBarGraph.destroy();
     }
