@@ -76,16 +76,6 @@ const createWindow = () => {
   // Open the DevTools.
   //mainWindow.webContents.openDevTools();
 
-  mainWindow.on('move', () => {
-    const { x, y, width, height } = mainWindow.getBounds();
-    const newScreen = screen.getDisplayNearestPoint({ x: x + width / 2, y: y + height / 2 });
-    
-    mainWindow.setSize(
-      Math.round(newScreen.size.width * 0.8),
-      Math.round(newScreen.size.height * 0.8)
-    );
-  });
-
   mainWindow.once('ready-to-show', () => {
     if (app.isPackaged) {
       autoUpdater.setFeedURL({
