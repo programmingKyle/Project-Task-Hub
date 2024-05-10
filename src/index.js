@@ -63,8 +63,6 @@ const createWindow = () => {
     width: windowWidth,
     height: windowHeight,
     frame: false,
-    resizable: false,   // Graphs break resizing...need to fix graphs
-    maximizable: false,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
     },

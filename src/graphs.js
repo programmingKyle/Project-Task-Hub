@@ -1,3 +1,5 @@
+
+
 async function getLast12Months() {
     var currentDate = new Date();
     var last12Months = [];
@@ -55,61 +57,58 @@ async function convertToMonthLabels(last12Months) {
   
   
 
-let annualBarGraph; // Declare the chart variable outside the function
+let annualBarGraph; 
+const annualGraph_el = document.getElementById('monthlyLineGraph');
+const ctxAnnual = annualGraph_el.getContext('2d');
+
 
 async function plotAnnualBarGraph(last12Months, last12MonthHours) {
-    const currentMonth = getCurrentMonth();
-    if (!annualBarGraph) {
-      // If the chart doesn't exist, create a new one
-      annualBarGraph = new Chart("annualBarGraph", {
-        type: "bar",
-        data: {
+  const currentMonth = getCurrentMonth();
+  // Create a new Chart object for the annual bar graph
+  return new Chart("annualBarGraph", {
+      type: "bar",
+      data: {
           labels: last12Months,
           datasets: [{
-            backgroundColor: last12Months.map(month => (month === currentMonth) ? '#F1F1F1' : '#9593D9'),
-            data: last12MonthHours,
+              backgroundColor: last12Months.map(month => (month === currentMonth) ? '#F1F1F1' : '#9593D9'),
+              data: last12MonthHours,
           }]
-        },
-        options: {
+      },
+      options: {
           legend: { display: false },
           responsive: true, // Make the chart responsive
           maintainAspectRatio: false, // Allow the aspect ratio to change
           scales: {
-            yAxes: [{
-              gridLines: {
-                display: false,
-              },
-              ticks: {
-                beginAtZero: true,
-                display: true,
-                fontColor: '#9593D9',
-                stepSize: 1,
-              }
-            }],
-            xAxes: [{
-              gridLines: {
-                display: false
-              },
-              ticks: {
-                display: true,
-                fontColor: '#9593D9',
-                callback: function (value, index, values) {
-                  return value.substring(0, 3);
-                },
-                maxRotation: 0,              
-              },
-              barPercentage: 0.8,              
-            }]
+              yAxes: [{
+                  gridLines: {
+                      display: false,
+                  },
+                  ticks: {
+                      beginAtZero: true,
+                      display: true,
+                      fontColor: '#9593D9',
+                      stepSize: 1,
+                  }
+              }],
+              xAxes: [{
+                  gridLines: {
+                      display: false
+                  },
+                  ticks: {
+                      display: true,
+                      fontColor: '#9593D9',
+                      callback: function (value, index, values) {
+                          return value.substring(0, 3);
+                      },
+                      maxRotation: 0,              
+                  },
+                  barPercentage: 0.8,              
+              }]
           }
-        }
-      });
-    } else {
-      // If the chart exists, update its data
-      annualBarGraph.data.labels = last12Months;
-      annualBarGraph.data.datasets[0].data = last12MonthHours;
-      annualBarGraph.update(); // Update the chart
-    }
+      }
+  });
 }
+
 
 async function grabCurrentDate(){
     const currentDate = new Date();
@@ -121,56 +120,51 @@ async function grabCurrentDate(){
     return date;
 }
  
-
+const monthlyLineGraph_el = document.getElementById('monthlyLineGraph');
+const ctxLineGraph = monthlyLineGraph_el.getContext('2d');
 let monthlyLineGraph; // Declare the chart variable outside the function
 
 async function plotMonthlyLineGraph(last30Days, last30DayCompletedTasks) {
-    const today = await grabCurrentDate();
-    if (!monthlyLineGraph) {
-      // If the chart doesn't exist, create a new one
-      monthlyLineGraph = new Chart("monthlyLineGraph", {
-        type: "bar",
-        data: {
+  const today = await grabCurrentDate();
+  // Create a new Chart object for the monthly line graph
+  return new Chart("monthlyLineGraph", {
+      type: "bar",
+      data: {
           labels: last30Days,
           datasets: [{
-            backgroundColor: last30Days.map(date => (date === today) ? '#F1F1F1' : '#9593D9'),
-            data: last30DayCompletedTasks,
+              backgroundColor: last30Days.map(date => (date === today) ? '#F1F1F1' : '#9593D9'),
+              data: last30DayCompletedTasks,
           }]
-        },
-        options: {
+      },
+      options: {
           legend: { display: false },
           responsive: true, // Make the chart responsive
           maintainAspectRatio: false, // Allow the aspect ratio to change
           scales: {
-            yAxes: [{
-              gridLines: {
-                display: false,
-              },
-              ticks: {
-                beginAtZero: true,
-                display: true,
-                fontColor: '#9593D9',
-                stepSize: 1,
-              }
-            }],
-            xAxes: [{
-              gridLines: {
-                display: false
-              },
-              ticks: {
-                display: false
-              }
-            }]
+              yAxes: [{
+                  gridLines: {
+                      display: false,
+                  },
+                  ticks: {
+                      beginAtZero: true,
+                      display: true,
+                      fontColor: '#9593D9',
+                      stepSize: 1,
+                  }
+              }],
+              xAxes: [{
+                  gridLines: {
+                      display: false
+                  },
+                  ticks: {
+                      display: false
+                  }
+              }]
           }
-        }
-      });
-    } else {
-      // If the chart exists, update its data
-      monthlyLineGraph.data.labels = last30DayCompletedTasks;
-      monthlyLineGraph.data.datasets[0].data = last30DayCompletedTasks;
-      monthlyLineGraph.update(); // Update the chart
-    }
+      }
+  });
 }
+
 
 
 
@@ -199,28 +193,44 @@ async function getLast30Days() {
     }
     return last30Days; // Reverse the array to get dates in descending order
 }
-  
 
-
-
-
-
-
-
-
-  
 document.addEventListener('DOMContentLoaded', async () => {
-    var last12Months = await getLast12Months();
-    var last12MonthsTaskCount = await api.graphCounts({request: 'MonthlyCompleteTaskCount', months: last12Months});
-    var monthLabels = await convertToMonthLabels(last12Months);
-    last12MonthsTaskCount.reverse();
-    monthLabels.reverse();
-    await plotAnnualBarGraph(monthLabels, last12MonthsTaskCount);
-
-    var last30Days = await getLast30Days();
-    var last30DaysTaskCount = await api.graphCounts({request: 'DailyCompleteTaskCount', days: last30Days});
-    await plotMonthlyLineGraph(last30Days, last30DaysTaskCount);
+  annualBarGraph = await populateAnnualBarGraph();
+  monthlyLineGraph = await populateMonthlyLineGraph();
 });
+
+async function populateAnnualBarGraph(){
+  var last12Months = await getLast12Months();
+  var last12MonthsTaskCount = await api.graphCounts({request: 'MonthlyCompleteTaskCount', months: last12Months});
+  var monthLabels = await convertToMonthLabels(last12Months);
+  last12MonthsTaskCount.reverse();
+  monthLabels.reverse();
+  return await plotAnnualBarGraph(monthLabels, last12MonthsTaskCount);
+}
+
+async function populateMonthlyLineGraph(){
+  var last30Days = await getLast30Days();
+  var last30DaysTaskCount = await api.graphCounts({request: 'DailyCompleteTaskCount', days: last30Days});
+  return await plotMonthlyLineGraph(last30Days, last30DaysTaskCount);
+}
+
+let resizeTimer;
+
+window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    console.log(annualBarGraph);
+    if (annualBarGraph){
+        annualBarGraph.destroy();
+    }
+    if (monthlyLineGraph){
+        monthlyLineGraph.destroy();
+    }
+    resizeTimer = setTimeout(async () => {
+        annualBarGraph = await populateAnnualBarGraph();
+        monthlyLineGraph = await populateMonthlyLineGraph();
+    }, 500);
+});
+
 
 
 
