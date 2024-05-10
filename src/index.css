@@ -209,7 +209,7 @@ h1,h2,h3,h4,h5,h6 {
 
 .frame-grid {
   display: grid;
-  grid-template-columns: 1fr auto auto;
+  grid-template-columns: 1fr auto auto auto;
   grid-gap: 0px;
   -webkit-app-region: drag;
   background: rgb(27,27,27);
