@@ -207,7 +207,6 @@ async function getProjectInfo(reqStatus) {
   });
 }
 
-
 ipcMain.handle('project-handler', (req, data) => {
   if (!data || !data.request ) return;
   switch (data.request) {

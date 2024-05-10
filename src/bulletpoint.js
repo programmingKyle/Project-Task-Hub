@@ -21,6 +21,7 @@ addBulletPointButton_el.addEventListener('click', async () => {
         return;
     }
     await api.bulletpointHandler({request: 'Add', taskID: taskID, projectID: projectID, bulletpoint: bulletpointInput_el.value});
+    await api.updateProjectDateModified({projectID: projectID});
     addBulletpointOverlay_el.style.display = 'none';
     bulletpointInput_el.value = '';
     await viewBulletpoints(currentBulletpointList, taskID, projectID);
@@ -90,6 +91,7 @@ async function viewBulletpoints(container, taskID, projectID) {
         listItemDiv_el.addEventListener('click', async (event) => {
             event.stopPropagation();
             const updatedStatus = await api.bulletpointHandler({request: 'Status', bulletpointID: element.id, status: element.status});
+            await api.updateProjectDateModified({projectID: projectID});
             element.status = updatedStatus;
             if (updatedStatus === 'complete'){
                 text_el.classList.add('complete');
@@ -117,6 +119,7 @@ document.addEventListener('keypress', async (event) => {
                 return;
             }
             await api.bulletpointHandler({request: 'Add', taskID: taskID, projectID: projectID, bulletpoint: bulletpointInput_el.value});
+            await api.updateProjectDateModified({projectID: projectID});
             await viewBulletpoints(currentBulletpointList, taskID, projectID);
             populateActiveBulletpoints();
             populateCompleteBulletpoints();        

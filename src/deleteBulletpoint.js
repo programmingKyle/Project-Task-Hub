@@ -18,6 +18,7 @@ cancelDeleteBulletpointButton_el.addEventListener('click', () => {
 
 confirmDeleteBulletpointButton_el.addEventListener('click', async () => {
     await api.bulletpointHandler({request: 'Delete', bulletpointID: currentDeleteBulletpointID});
+    await api.updateProjectDateModified({projectID: currentDeleteProjectID});
     deleteBulletpointOverlay_el.style.display = 'none';
     await viewBulletpoints(currentBulletpointList, currentDeleteTaskID, currentDeleteProjectID);
     await populateActiveBulletpoints();

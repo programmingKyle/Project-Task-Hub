@@ -38,6 +38,7 @@ document.addEventListener('keypress', async (event) => {
             } else {
                 removeErrorInput(editBulletpointInput_el);
                 await api.bulletpointHandler({request: 'Edit', bulletpointID: currentEditBulletpointID, editBulletpoint: editBulletpointInput_el.value});
+                await api.updateProjectDateModified({projectID: currentEditProjectID});
                 editBulletpointInput_el.value = '';
                 editBulletpointOverlay_el.style.display = 'none';
                 await viewBulletpoints(currentBulletpointList, currentEditTaskID, currentEditProjectID);    
