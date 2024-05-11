@@ -86,8 +86,10 @@ const createWindow = () => {
     if (!mainWindow.isMaximized()) {
       const { width: newWidth, height: newHeight } = mainWindow.getBounds();
       store.set('windowBounds', { width: newWidth, height: newHeight, x: mainWindow.getPosition()[0], y: mainWindow.getPosition()[1], isMaximized: false });
+      frameMaximized = false;
     } else {
       store.set('windowBounds', { width, height, x, y, isMaximized: true });
+      frameMaximized = true;
     }
   });
   
