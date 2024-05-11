@@ -48,7 +48,7 @@ input {
   box-shadow: inset 0px 0px 5px #0e0e0e;
 }
 
-.inner-container h5 {
+.inner-container h6 {
   color: #7c90db;
 }
 
@@ -141,8 +141,6 @@ p {
 .project-button:hover{
   filter: brightness(1.2);
 }
-
-
 
 h1,h2,h3,h4,h5,h6 {
   padding: 0px;
