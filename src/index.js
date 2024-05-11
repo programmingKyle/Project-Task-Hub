@@ -2,6 +2,9 @@ const { app, BrowserWindow, screen, ipcMain } = require('electron');
 const path = require('path');
 const { autoUpdater } = require('electron-updater');
 
+const Store = require('electron-store');
+const store = new Store();
+
 const sqlite3 = require('sqlite3').verbose();
 const appDataPath = app.getPath('userData');
 const db = new sqlite3.Database(`${appDataPath}/database.db`);
@@ -56,19 +59,45 @@ let mainWindow;
 
 const createWindow = () => {
   const mainScreen = screen.getPrimaryDisplay();
-  const windowWidth = Math.round(mainScreen.size.width * 0.8); // 80% of screen width
-  const windowHeight = Math.round(mainScreen.size.height * 0.8); // 80% of screen height
+  const { width, height, x, y, isMaximized } = store.get('windowBounds', { width: Math.round(mainScreen.size.width * 0.8), height: Math.round(mainScreen.size.height * 0.8), x: undefined, y: undefined, isMaximized: false });  // Create the browser window.
+
+  //const windowWidth = Math.round(mainScreen.size.width * 0.8); // 80% of screen width
+  //const windowHeight = Math.round(mainScreen.size.height * 0.8); // 80% of screen height
 
   mainWindow = new BrowserWindow({
-    width: windowWidth,
-    height: windowHeight,
+    width: width,
+    height: height,
     minWidth: 800,
     minHeight:  600,
+    x: x,
+    y: y,
     frame: false,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
     },
   });
+
+  if (isMaximized) {
+    frameMaximized = true;
+    mainWindow.maximize();
+  }
+
+  mainWindow.on('resize', () => {
+    if (!mainWindow.isMaximized()) {
+      const { width: newWidth, height: newHeight } = mainWindow.getBounds();
+      store.set('windowBounds', { width: newWidth, height: newHeight, x: mainWindow.getPosition()[0], y: mainWindow.getPosition()[1], isMaximized: false });
+    } else {
+      store.set('windowBounds', { width, height, x, y, isMaximized: true });
+    }
+  });
+  
+  mainWindow.on('move', () => {
+    if (!mainWindow.isMaximized()) {
+      const [newX, newY] = mainWindow.getPosition();
+      store.set('windowBounds', { width, height, x: newX, y: newY, isMaximized: false });
+    }
+  });
+
 
   // and load the index.html of the app.
   mainWindow.loadFile(path.join(__dirname, 'index.html'));
@@ -145,7 +174,7 @@ app.on('activate', () => {
   }
 });
 
-let isMaximized;
+let frameMaximized;
 ipcMain.handle('frame-handler', (req, data) => {
   if (!data || !data.request) return;
   switch(data.request){
@@ -162,12 +191,12 @@ ipcMain.handle('frame-handler', (req, data) => {
 });
 
 function toggleMaximize(){
-  if (isMaximized){
+  if (frameMaximized){
     mainWindow.restore();
   } else {
     mainWindow.maximize();
   }
-  isMaximized = !isMaximized;
+  frameMaximized = !frameMaximized;
 }
 
 ipcMain.handle('get-projects', async (req, data) => {
