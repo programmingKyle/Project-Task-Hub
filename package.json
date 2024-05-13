@@ -1,7 +1,7 @@
 {
   "name": "project-task-hub",
   "productName": "Project Task Hub",
-  "version": "2.2.2",
+  "version": "2.2.3",
   "description": "My Electron application description",
   "main": "src/index.js",
   "scripts": {
