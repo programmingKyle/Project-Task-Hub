@@ -422,8 +422,24 @@ ipcMain.handle('change-task-category', (req, data) => {
         resolve();
       }
     });
+
+    completeBulletWithTask(data.taskID);
   });
 });
+
+function completeBulletWithTask(taskID){
+  return new Promise((resolve, reject) => {
+    const sqlStatement = `UPDATE bulletpoints SET status = ?, dateModified = datetime("now", "localtime"), dateCompleted = datetime("now", "localtime") WHERE taskID = ?`;
+    params = ['complete', taskID];
+    db.run(sqlStatement, params, (err) => {
+      if (err){
+        reject(err);
+      } else {
+        resolve();
+      }
+    })
+  });
+}
 
 
 
