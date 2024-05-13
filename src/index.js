@@ -802,7 +802,12 @@ ipcMain.handle('bulletpoint-handler', async(req, data) => {
 
 async function toggleBulletpointStatus(id, status) {
   const newStatus = status === 'active' ? 'complete' : 'active';
-  const sqlStatement = 'UPDATE bulletpoints SET status = ?, dateModified = datetime("now", "localtime") WHERE id = ?';
+  let sqlStatement;
+  if (newStatus === 'complete'){
+    sqlStatement = `UPDATE bulletpoints SET status = ?, dateModified = datetime("now", "localtime"), dateCompleted = datetime("now", "localtime") WHERE id = ?`;
+  } else {
+    sqlStatement = 'UPDATE bulletpoints SET status = ?, dateModified = datetime("now", "localtime"), dateCompleted = NULL WHERE id = ?';
+  }
   return new Promise((resolve, reject) => {
     db.run(sqlStatement, [newStatus, id], (err) => {
       if (err){
