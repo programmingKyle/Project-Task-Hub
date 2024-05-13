@@ -10,7 +10,6 @@ maximizeButton_el.addEventListener('click', () => {
     api.frameHandler({request: 'Maximize'});
 });
 
-
 exitButton_el.addEventListener('click', () => {
     api.frameHandler({request: 'Exit'});
 });

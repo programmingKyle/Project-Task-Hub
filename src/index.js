@@ -9,6 +9,8 @@ const sqlite3 = require('sqlite3').verbose();
 const appDataPath = app.getPath('userData');
 const db = new sqlite3.Database(`${appDataPath}/database.db`);
 
+let frameMaximized;
+
 // palette: https://coolors.co/f1f1f1-1b1b1b-252525-313131-9593d9-7c90db-889ade-24d05b-de2b2b
 
 
@@ -83,13 +85,11 @@ const createWindow = () => {
   }
 
   mainWindow.on('resize', () => {
+    const { width: newWidth, height: newHeight } = mainWindow.getBounds();
     if (!mainWindow.isMaximized()) {
-      const { width: newWidth, height: newHeight } = mainWindow.getBounds();
       store.set('windowBounds', { width: newWidth, height: newHeight, x: mainWindow.getPosition()[0], y: mainWindow.getPosition()[1], isMaximized: false });
-      frameMaximized = false;
     } else {
       store.set('windowBounds', { width, height, x, y, isMaximized: true });
-      frameMaximized = true;
     }
   });
   
@@ -97,6 +97,7 @@ const createWindow = () => {
     if (!mainWindow.isMaximized()) {
       const [newX, newY] = mainWindow.getPosition();
       store.set('windowBounds', { width, height, x: newX, y: newY, isMaximized: false });
+      frameMaximized = false;
     }
   });
 
@@ -176,7 +177,6 @@ app.on('activate', () => {
   }
 });
 
-let frameMaximized;
 ipcMain.handle('frame-handler', (req, data) => {
   if (!data || !data.request) return;
   switch(data.request){
