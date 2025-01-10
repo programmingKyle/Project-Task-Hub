@@ -7,12 +7,21 @@ const store = new Store();
 
 const sqlite3 = require('sqlite3').verbose();
 const appDataPath = app.getPath('userData');
-const db = new sqlite3.Database(`${appDataPath}/database.db`);
+let dbDirectory; // Will display the path of the database
+let db;
 
 let frameMaximized;
 
-// palette: https://coolors.co/f1f1f1-1b1b1b-252525-313131-9593d9-7c90db-889ade-24d05b-de2b2b
+if (!store.get('dataDirectory')){
+  store.set('dataDirectory', `${appDataPath}/database.db`);
+  dbDirectory = `${appDataPath}/database.db`;
+  db = new sqlite3.Database(`${appDataPath}/database.db`);
+} else {
+  dbDirectory = store.get('dataDirectory');
+  db = new sqlite3.Database(dbDirectory);
+}
 
+// palette: https://coolors.co/f1f1f1-1b1b1b-252525-313131-9593d9-7c90db-889ade-24d05b-de2b2b
 
 db.run(`
   CREATE TABLE IF NOT EXISTS projects (
