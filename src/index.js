@@ -12,10 +12,12 @@ let db;
 
 let frameMaximized;
 
+//console.log(path.join(appDataPath, 'database.db'));
+
 if (!store.get('dataDirectory')){
-  store.set('dataDirectory', `${appDataPath}/database.db`);
-  dbDirectory = `${appDataPath}/database.db`;
-  db = new sqlite3.Database(`${appDataPath}/database.db`);
+  store.set('dataDirectory', path.join(appDataPath, 'database.db'));
+  dbDirectory = path.join(appDataPath, 'database.db');
+  db = new sqlite3.Database(dbDirectory);
 } else {
   dbDirectory = store.get('dataDirectory');
   db = new sqlite3.Database(dbDirectory);
@@ -884,3 +886,7 @@ function addBulletPoint(taskID, projectID, bulletpoint){
     console.error(error);
   }
 }
+
+ipcMain.handle('grab-database-directory', () => {
+  return dbDirectory;
+});

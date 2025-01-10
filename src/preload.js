@@ -10,7 +10,8 @@ contextBridge.exposeInMainWorld('api', {
     deleteTask: (data) => ipcRenderer.invoke('delete-task', data),
     editTask: (data) => ipcRenderer.invoke('edit-task', data),
     updateProjectDateModified: (data) => ipcRenderer.invoke('update-project-date-modified', data),
-
+    grabDatabaseDirectory: () => ipcRenderer.invoke('grab-database-directory'),
+        
     hubQuickInfoHandler: (data) => ipcRenderer.invoke('hub-quick-info-handler', data),
     taskQuickInfoHandler: (data) => ipcRenderer.invoke('task-quick-info-handler', data),
 
