@@ -31,6 +31,15 @@
           <button id="saveProjectButton" class="input-button">Add Project</button>
       </div>
     </div>
+
+    <div id="optionsOverlay" class="overlay" style="display: none;">
+      <div class="centered-container" style="text-align: center;">
+        <div style="display: grid; grid-template-columns: 1fr auto;">
+          <h1>Options</h1>
+          <button id="closeOptionsButton" class="slim-button fa-solid fa-x"></button>
+        </div>
+      </div>
+    </div>
   
     <div class="base-grid">
       <div class="frame-grid">
@@ -44,7 +53,7 @@
       <div class="top-bar-grid container">
         <div class="home-icon-grid">
           <h1 class="fas fa-home" style="color: #7C90DB; grid-column-start: 2;"></h1>
-          <button class="slim-button fas fa-gear" style="grid-column-start: 3; text-align: right;"></button>
+          <button id="optionsButton" class="slim-button fas fa-gear" style="grid-column-start: 3; text-align: right;"></button>
         </div>
         <div class="quick-stats-top-bar-grid">
           <div class="inner-container header-and-container">
@@ -123,6 +132,7 @@
   <script src="graphs.js"></script>
   <script src="frame.js"></script>
   <script src="autoUpdater.js"></script>
+  <script src="options.js"></script>
 </html>
 
 
