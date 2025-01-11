@@ -11,7 +11,8 @@ contextBridge.exposeInMainWorld('api', {
     editTask: (data) => ipcRenderer.invoke('edit-task', data),
     updateProjectDateModified: (data) => ipcRenderer.invoke('update-project-date-modified', data),
     grabDatabaseDirectory: () => ipcRenderer.invoke('grab-database-directory'),
-        
+    fileDirectoryDialog: (data) => ipcRenderer.invoke('file-directory-dialog'),
+
     hubQuickInfoHandler: (data) => ipcRenderer.invoke('hub-quick-info-handler', data),
     taskQuickInfoHandler: (data) => ipcRenderer.invoke('task-quick-info-handler', data),
 

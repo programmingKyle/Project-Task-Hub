@@ -1,4 +1,4 @@
-const { app, BrowserWindow, screen, ipcMain } = require('electron');
+const { app, BrowserWindow, screen, ipcMain, dialog } = require('electron');
 const path = require('path');
 const { autoUpdater } = require('electron-updater');
 
@@ -889,4 +889,18 @@ function addBulletPoint(taskID, projectID, bulletpoint){
 
 ipcMain.handle('grab-database-directory', () => {
   return dbDirectory;
+});
+
+
+//use dbDirectory to open from there
+ipcMain.handle('file-directory-dialog', async () => {
+  const result = await dialog.showOpenDialog({
+    defaultPath: dbDirectory,
+    properties: ['openFile'],
+    filters: [
+      { name: 'Databases', extensions: ['db']},
+    ],
+    title: 'Select a database',
+  });
+  return result;
 });

@@ -17,4 +17,10 @@ optionsButton_el.addEventListener('click', async () => {
 
 closeOptionsButton_el.addEventListener('click', () => {
     optionsOverlay_el.style.display = 'none';
-})
+});
+
+optionsChangeDirectoryButton_el.addEventListener('click', async () => {
+    console.log('Change directory');
+    const result = await api.fileDirectoryDialog();
+    console.log(result);
+});
