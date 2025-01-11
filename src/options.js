@@ -20,7 +20,6 @@ closeOptionsButton_el.addEventListener('click', () => {
 });
 
 optionsChangeDirectoryButton_el.addEventListener('click', async () => {
-    console.log('Change directory');
     const result = await api.fileDirectoryDialog();
-    console.log(result);
+    optionsDirectoryText_el.textContent = result;
 });

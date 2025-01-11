@@ -902,5 +902,13 @@ ipcMain.handle('file-directory-dialog', async () => {
     ],
     title: 'Select a database',
   });
-  return result;
+
+  if (result.canceled){
+    return;
+  }
+
+  const formattedPath = result.filePaths.toString();
+  return formattedPath;
 });
+
+//store.set('dataDirectory', formattedPath);
