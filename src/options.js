@@ -34,4 +34,6 @@ saveDirectoryButton_el.addEventListener('click', async () => {
     } else {
         console.log(result.message);
     }
+
+    await repopulateHomeView();
 });

@@ -194,24 +194,30 @@ async function getLast30Days() {
     return last30Days; // Reverse the array to get dates in descending order
 }
 
-document.addEventListener('DOMContentLoaded', async () => {
-  annualBarGraph = await populateAnnualBarGraph();
-  monthlyLineGraph = await populateMonthlyLineGraph();
-});
+async function populateGraphs(){
+    if (annualBarGraph){
+        annualBarGraph.destroy();
+    }
+    if (monthlyLineGraph){
+        monthlyLineGraph.destroy();
+    }
+    annualBarGraph = await populateAnnualBarGraph();
+    monthlyLineGraph = await populateMonthlyLineGraph();
+}
 
 async function populateAnnualBarGraph(){
-  var last12Months = await getLast12Months();
-  var last12MonthsTaskCount = await api.graphCounts({request: 'MonthlyCompleteTaskCount', months: last12Months});
-  var monthLabels = await convertToMonthLabels(last12Months);
-  last12MonthsTaskCount.reverse();
-  monthLabels.reverse();
-  return await plotAnnualBarGraph(monthLabels, last12MonthsTaskCount);
+    var last12Months = await getLast12Months();
+    var last12MonthsTaskCount = await api.graphCounts({request: 'MonthlyCompleteTaskCount', months: last12Months});
+    var monthLabels = await convertToMonthLabels(last12Months);
+    last12MonthsTaskCount.reverse();
+    monthLabels.reverse();
+    return await plotAnnualBarGraph(monthLabels, last12MonthsTaskCount);
 }
 
 async function populateMonthlyLineGraph(){
-  var last30Days = await getLast30Days();
-  var last30DaysTaskCount = await api.graphCounts({request: 'DailyCompleteTaskCount', days: last30Days});
-  return await plotMonthlyLineGraph(last30Days, last30DaysTaskCount);
+    var last30Days = await getLast30Days();
+    var last30DaysTaskCount = await api.graphCounts({request: 'DailyCompleteTaskCount', days: last30Days});
+    return await plotMonthlyLineGraph(last30Days, last30DaysTaskCount);
 }
 
 let resizeTimer;

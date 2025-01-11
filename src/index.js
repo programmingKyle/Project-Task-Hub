@@ -907,14 +907,15 @@ ipcMain.handle('file-directory-dialog', async () => {
     return dbDirectory;
   }
 
-  const formattedPath = result.filePaths.toString();
-  return formattedPath;
+  dbDirectory = result.filePaths.toString();
+  return dbDirectory;
 });
 
 ipcMain.handle('save-database-directory', (req, data) => {
   if (!data || !data.directory) return;
   try {
     store.set('dataDirectory', data.directory);
+    db = new sqlite3.Database(data.directory);
     return {success: true, message: 'Successfully changed databases'};
   } catch (error) {
     return {success: false, message: error.message};

@@ -104,5 +104,12 @@ showCompleteProjectsButton_el.addEventListener('click', () => {
 });
 
 document.addEventListener('DOMContentLoaded', async () => {
-    populateProjectList('active');
+    await populateProjectList('active');
+    await populateGraphs();
 });
+
+async function repopulateHomeView(){
+    await populateProjectList('active');
+    await populateGraphs();
+    updateCounts();
+}
