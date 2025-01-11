@@ -7,7 +7,8 @@
   "scripts": {
     "start": "electron-forge start",
     "package": "electron-builder",
-    "make": "electron-builder --win",
+    "make-win": "electron-builder --win",
+    "make-linux": "electron-builder --linux",
     "publish": "electron-builder --publish always"
   },
   "keywords": [],
