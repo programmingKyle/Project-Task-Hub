@@ -9,10 +9,12 @@ const optionsResetDirectoryButton_el = document.getElementById('optionsResetDire
 const saveDirectoryButton_el = document.getElementById('saveDirectoryButton');
 const closeOptionsButton_el = document.getElementById('closeOptionsButton');
 
+let databaseDirectoryLoc;
+
 optionsButton_el.addEventListener('click', async () => {
     optionsOverlay_el.style.display = 'flex'; 
-    const directory = await api.grabDatabaseDirectory();
-    optionsDirectoryText_el.textContent = directory;
+    databaseDirectoryLoc = await api.grabDatabaseDirectory();
+    optionsDirectoryText_el.textContent = databaseDirectoryLoc;
 });
 
 closeOptionsButton_el.addEventListener('click', () => {
@@ -20,6 +22,16 @@ closeOptionsButton_el.addEventListener('click', () => {
 });
 
 optionsChangeDirectoryButton_el.addEventListener('click', async () => {
-    const result = await api.fileDirectoryDialog();
-    optionsDirectoryText_el.textContent = result;
+    databaseDirectoryLoc = await api.fileDirectoryDialog();
+    optionsDirectoryText_el.textContent = databaseDirectoryLoc;
+});
+
+saveDirectoryButton_el.addEventListener('click', async () => {
+    const result = await api.saveDatabaseDirectory({directory: databaseDirectoryLoc});
+    console.log(result);
+    if (result.success){
+        optionsOverlay_el.style.display = 'none';
+    } else {
+        console.log(result.message);
+    }
 });

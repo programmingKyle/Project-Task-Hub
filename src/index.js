@@ -904,11 +904,19 @@ ipcMain.handle('file-directory-dialog', async () => {
   });
 
   if (result.canceled){
-    return;
+    return dbDirectory;
   }
 
   const formattedPath = result.filePaths.toString();
   return formattedPath;
 });
 
-//store.set('dataDirectory', formattedPath);
+ipcMain.handle('save-database-directory', (req, data) => {
+  if (!data || !data.directory) return;
+  try {
+    store.set('dataDirectory', data.directory);
+    return {success: true, message: 'Successfully changed databases'};
+  } catch (error) {
+    return {success: false, message: error.message};
+  }
+});
