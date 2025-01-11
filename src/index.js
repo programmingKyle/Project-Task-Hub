@@ -887,10 +887,20 @@ function addBulletPoint(taskID, projectID, bulletpoint){
   }
 }
 
-ipcMain.handle('grab-database-directory', () => {
-  return dbDirectory;
+ipcMain.handle('grab-database-directory', (req, data) => {
+  if (!data || !data.request) return;
+  let dir;
+  switch (data.request){
+    case 'Saved':
+      dir = dbDirectory;
+      break;
+    case 'Default':
+      dir = path.join(appDataPath, 'database.db');
+      break;
+  }
+  dbDirectory = dir;
+  return dir;
 });
-
 
 //use dbDirectory to open from there
 ipcMain.handle('file-directory-dialog', async () => {

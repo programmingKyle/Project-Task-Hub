@@ -13,7 +13,7 @@ let databaseDirectoryLoc;
 
 optionsButton_el.addEventListener('click', async () => {
     optionsOverlay_el.style.display = 'flex'; 
-    databaseDirectoryLoc = await api.grabDatabaseDirectory();
+    databaseDirectoryLoc = await api.grabDatabaseDirectory({request: 'Saved'});
     optionsDirectoryText_el.textContent = databaseDirectoryLoc;
 });
 
@@ -36,4 +36,9 @@ saveDirectoryButton_el.addEventListener('click', async () => {
     }
 
     await repopulateHomeView();
+});
+
+optionsResetDirectoryButton_el.addEventListener('click', async () => {
+    databaseDirectoryLoc = await api.grabDatabaseDirectory({request: 'Default'});
+    optionsDirectoryText_el.textContent = databaseDirectoryLoc;
 });

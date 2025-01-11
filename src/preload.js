@@ -11,7 +11,7 @@ contextBridge.exposeInMainWorld('api', {
     editTask: (data) => ipcRenderer.invoke('edit-task', data),
     updateProjectDateModified: (data) => ipcRenderer.invoke('update-project-date-modified', data),
 
-    grabDatabaseDirectory: () => ipcRenderer.invoke('grab-database-directory'),
+    grabDatabaseDirectory: (data) => ipcRenderer.invoke('grab-database-directory', data),
     fileDirectoryDialog: () => ipcRenderer.invoke('file-directory-dialog'),
     saveDatabaseDirectory: (data) => ipcRenderer.invoke('save-database-directory', data),
 
